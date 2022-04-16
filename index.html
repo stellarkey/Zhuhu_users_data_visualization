@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="10W+知乎用户数据可视化项目">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>知乎用户数据可视化</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <link rel="stylesheet" href="/css/preview.css" />
+</head>
+
+<body>
+  <div id="loading-preview-animation" class="spinner">
+    <div class="spinner-container container1">
+      <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div>
+    </div>
+    <div class="spinner-container container2">
+      <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div>
+    </div>
+    <div class="spinner-container container3">
+      <div class="circle1"></div> <div class="circle2"></div> <div class="circle3"></div> <div class="circle4"></div>
+    </div>
+  </div>
+
+  <script>
+    function open_loading_preview(){  // 开启加载动画。
+      document.getElementById("loading-preview-animation").setAttribute("class", "spinner");
+    }
+    function close_loading_preview(){ // 关掉加载动画。
+      document.getElementById("loading-preview-animation").setAttribute("class", "spinner-no-more");
+    }
+  </script>
+
+</body>
