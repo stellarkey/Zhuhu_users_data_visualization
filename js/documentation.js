@@ -14,7 +14,7 @@ class Documentation {
           <p><span>数据来源于</span><a href="https://opendata.pku.edu.cn/dataverse/pku"><span>北京大学开放研究数据平台</span></a><span>。</span></p>
           <blockquote><p><span>姚, 若愚, 2019, </span>“<span>10W+知乎用户数据集</span>”<span>, </span><a href="https://doi.org/10.18170/DVN/XLRXFR" target="_blank" class="url">https://doi.org/10.18170/DVN/XLRXFR</a><span>, 北京大学开放研究数据平台, V1</span></p></blockquote>
           <p><span>数据格式为单个json文件。数据集共有10万条用户数据。一个典型的用户数据如下：</span></p>
-          <p><img src="/img/typical-user-data.png" referrerpolicy="no-referrer" alt="image-typical-user-data"></p>
+          <p><img src="img/typical-user-data.png" referrerpolicy="no-referrer" alt="image-typical-user-data"></p>
           <p><span>数据包含了以下内容：</span></p>
           <ul><li><code>name</code><span>：昵称</span></li><li><code>url_token</code><span>：用户识别码</span></li><li><code>user_type</code><span>：用户类型</span></li><li><code>avatar_url</code><span>：头像链接</span></li><li><code>business</code><span>：所属领域</span></li><li><code>description</code><span>：个人描述</span></li><li><code>educations</code><span>：教育背景</span></li><li><code>employments</code><span>：职业背景</span></li><li><code>gender</code><span>：性别</span></li><li><code>headline</code><span>：签名</span></li><li><code>locations</code><span>：地区</span></li><li><code>answer_count</code><span>：回答数</span></li><li><code>articles_count</code><span>：文章数</span></li><li><code>voteup_count</code><span>：获赞数</span></li><li><code>thanked_count</code><span>：感谢数</span></li><li><code>favorited_count</code><span>：收藏数</span></li><li><code>follower_count</code><span>：被关注数</span></li><li><code>following_count</code><span>：关注数</span></li></ul>
         </div>

@@ -10,7 +10,7 @@ class MyDemo {
     document.getElementById(element_id).innerHTML = '<div id="echarts-name_follower_count" style="margin: 1em auto; width:1200px; height:600px;"></div>';
     
     let myChart = echarts.init(document.getElementById("echarts-name_follower_count"));
-    $.getJSON("/data/data_name_follower_count.json").then(data => {
+    $.getJSON("data/data_name_follower_count.json").then(data => {
       // 指定图表的配置项和数据
       var list_name = []
       var list_follower_count = []
