@@ -11,7 +11,7 @@
 
 数据格式为单个json文件。数据集共有10万条用户数据。一个典型的用户数据如下：
 
-![typical-user-data](README/typical-user-data.png)
+![typical-user-data](img/typical-user-data.png)
 
 数据包含了以下内容：
 
