@@ -57,7 +57,7 @@
           <dl class="layui-nav-child">
             <dd><a href="#/demo1/">Demo 1: 知乎用户关注数统计（折线图）</a></dd>
             <dd><a id="test-functionality" href="#/demo2/">Demo 2: 知乎用户地理位置分布（地图）</a></dd>
-            <dd><a href="#/demo3/">Demo 3</a></dd> 
+            <dd><a href="#/demo3/">Demo 3：随机抽取用户</a></dd> 
           </dl>
         </li>
         <!-- <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">数据探索</a></li>
@@ -138,20 +138,29 @@
   </script>
 
   <!-- 演示示例1 -->
-  <script src="js/echarts_demo.js"></script>
+  <script src="js/demo_echarts.js"></script>
   <script>
-    var my_demo = new MyDemo();
+    var echarts_demo = new EchartsDemo();
     function create_echarts_demo_name_follower_count(){
-      my_demo.create_echarts_demo_name_follower_count_at('main-content-area');
+      echarts_demo.create_echarts_demo_name_follower_count_at('main-content-area');
     }
   </script>  
   
   <!-- 演示示例2 -->
-  <script src="js/d3_demo.js"></script>
+  <script src="js/demo_d3.js"></script>
   <script>
     var d3_demo = new D3Demo();
     function create_d3_demo_name_locations(){
       d3_demo.create_d3_demo_name_locations('main-content-area');
+    }
+  </script> 
+  
+  <!-- 演示示例3 -->
+  <script src="js/demo_random_choise.js"></script>
+  <script>
+    var rand_demo = new RandomChoiseDemo();
+    function create_demo_random_choise(){
+      rand_demo.create_demo_random_choise('main-content-area');
     }
   </script> 
 
@@ -174,6 +183,7 @@
       "#/introduction/": create_documentation,
       "#/demo1/": create_echarts_demo_name_follower_count,
       "#/demo2/": create_d3_demo_name_locations,
+      "#/demo3/": create_demo_random_choise,
     };
     // hash 路由函数：根据 URL 加载相应的内容。
     function change_content_by_hash(){

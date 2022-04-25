@@ -1,4 +1,4 @@
-class MyDemo {
+class EchartsDemo {
   constructor() {  }
 
   create_echarts_demo_name_follower_count_at(element_id){
