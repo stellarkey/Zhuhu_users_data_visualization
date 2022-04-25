@@ -4,7 +4,7 @@ class D3Demo {
   create_d3_demo_name_locations(element_id){
     open_loading_preview();
     
-    document.getElementById(element_id).innerHTML = '<svg width="1500" height="750" id="Map_svg" class="svgs" style="display: block; margin: 0 auto;"></svg>';
+    document.getElementById(element_id).innerHTML = '<svg width="1200" height="750" id="Map_svg" class="svgs" style="display: block; margin: 0 auto;"></svg>';
     
     let d3_svg = d3.select(document.getElementById("Map_svg")).node();
     $.getJSON("data/China.json").then(async data => {
@@ -18,9 +18,10 @@ class D3Demo {
       const mainGroup = svg.append('g')
       .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
-      const tip = d3.tip().html((event, d) => d.properties.name);
-      svg.call(tip);
-      tip.attr('class', 'd3-tip');
+      const tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .html((event, d) => d.properties.name);
+      mainGroup.call(tip);
 
       const projection = d3.geoNaturalEarth1();
       // const projection = d3.geoMercator();
@@ -30,16 +31,15 @@ class D3Demo {
       projection.fitSize([innerWidth, innerHeight], data);
       const path = d3.geoPath().projection(projection);
       mainGroup.selectAll('path').data(data.features).join('path')
-      .attr('stroke', 'black').attr('fill', 'white')
-      .attr('d', path)
-      .attr('id', d => d.properties.name)
-      .on('mouseover', function(d, i) {
-        d3.selectAll('.d3-tip').raise();
-        tip.show(d, i);
-      })
-      .on('mouseout', function(d, i) {
-        tip.hide(d, i);
-      });
+        .attr('stroke', 'black').attr('fill', 'white')
+        .attr('d', path)
+        .attr('id', d => d.properties.name)
+        .on('mouseover', function(d, i) {
+          tip.show(d, i);
+        })
+        .on('mouseout', function(d, i) {
+          tip.hide(d, i);
+        });
 
       close_loading_preview();
     })

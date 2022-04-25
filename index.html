@@ -50,13 +50,13 @@
         <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
           <i class="layui-icon layui-icon-spread-left"></i>
         </li>
-        <li class="layui-nav-item layui-hide-xs"><a href="./">首页</a></li>
+        <li class="layui-nav-item layui-hide-xs"><a href="javascript:create_homepage();">首页</a></li>
         <li class="layui-nav-item layui-hide-xs"><a href="javascript:create_documentation();">简介</a></li>
         <li class="layui-nav-item">
           <a href="javascript:;">演示示例</a>
           <dl class="layui-nav-child">
             <dd><a href="javascript:create_echarts_demo_name_follower_count();">Demo 1: 知乎用户关注数统计（折线图）</a></dd>
-            <dd><a href="javascript:create_d3_demo_name_locations();">Demo 2</a></dd>
+            <dd><a id="test-functionality" href="javascript:create_d3_demo_name_locations();">Demo 2: 知乎用户地理位置分布（地图）</a></dd>
             <dd><a href="javascript:;">Demo 3</a></dd> 
           </dl>
         </li>
@@ -93,49 +93,6 @@
       <!-- 内容主体区域 -->
       <div id="main-content-area" style="padding: 45px;">
 
-
-        <div id="main-title" style="font-size: 2em; text-align: center; margin-bottom: 3em;">
-          <h1>10W+知乎用户数据可视化项目</h1>
-        </div>
-
-
-        <div id="group-members" style="margin: auto; width:55vw; display: block; overflow:hidden; padding: 5px; border:2px solid black; border-radius: 10px;">
-          <div>
-            <h2 style="margin-left: 10px;">小组成员</h2>
-          </div>
-          <div class="layui-card layui-col-space15" style="">
-            <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
-              <div class="layui-card-header">
-                <img src="img/u1.jpg" style="width: 45px;">
-              </div>
-              <div class="layui-card-header">彭晓 计算机系</div>
-              <div class="layui-card-body">
-                233
-              </div>
-            </div>
-            <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
-              <div class="layui-card-header">
-                <img src="img/u2.jpg" style="width: 45px;">
-              </div>
-              <div class="layui-card-header">李世林 机械系</div>
-              <div class="layui-card-body">
-                666<br>
-              </div>
-            </div>
-            <div class="layui-col-xs4 layui-col-sm4 layui-col-md4">
-              <div class="layui-card-header">
-                <img src="img/u3.jpg" style="width: 45px;">
-              </div>
-              <div class="layui-card-header">胡业媛 材料学院</div>
-              <div class="layui-card-body">
-                233<br>
-              </div>
-            </div>
-            
-            
-            
-          </div>
-        </div>
       </div>
     </div>
     
@@ -173,7 +130,6 @@
     });
   </script>
 
-
   <!-- 可视化提案  -->
   <script src="js/documentation.js"></script>
   <script>
@@ -183,7 +139,7 @@
     }
   </script>
 
-  <!-- 演示示例 -->
+  <!-- 演示示例1 -->
   <script src="js/echarts_demo.js"></script>
   <script>
     var my_demo = new MyDemo();
@@ -192,7 +148,7 @@
     }
   </script>  
   
-  <!-- 演示示例 -->
+  <!-- 演示示例2 -->
   <script src="js/d3_demo.js"></script>
   <script>
     var d3_demo = new D3Demo();
@@ -201,10 +157,25 @@
     }
   </script> 
 
+
+  <!-- 通用功能区 -->
   <script>
+    function create_homepage(){
+      create_homepage_at('main-content-area');
+    }
+
     window.addEventListener('DOMContentLoaded', function() {
       close_loading_preview();
     });
   </script>
 
+  <!-- 初始化 -->
+  <script>
+    create_homepage_at('main-content-area');
+  </script>
+
+  <!-- 测试专用区 -->
+  <script>
+    // document.getElementById("test-functionality").click();
+  </script>
 </body>
