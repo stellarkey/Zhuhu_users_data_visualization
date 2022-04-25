@@ -42,7 +42,7 @@
   <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
       <div class="layui-logo">
-        <a id="header-logo" href="#/" style="color: #1E9FFF; font-weight: 800; font-size: 20px; font-family:kaiti;">10W+知乎用户可视化</a>
+        <a id="header-logo" href="#/233/" style="color: #1E9FFF; font-weight: 800; font-size: 20px; font-family:kaiti;">10W+知乎用户可视化</a>
       </div>
       <!-- 头部区域（可配合layui 已有的水平导航） -->
       <ul class="layui-nav layui-layout-left">
@@ -72,7 +72,7 @@
       </ul>
       <ul class="layui-nav layui-layout-right">
         <li class="layui-nav-item layui-hide layui-show-md-inline-block">
-          <a href="https://cg.cs.tsinghua.edu.cn/course/vis/index.html">
+          <a href="https://cg.cs.tsinghua.edu.cn/course/vis/index.html" target="_blank">
             <img src="img/tsinghua-logo.jpg" style="height: 35px;">
           </a>
           <!-- <dl class="layui-nav-child">
@@ -161,6 +161,9 @@
     function create_homepage(){
       $("#main-content-area").load("static_content/main_page.xml");
     }
+    function create_404_page(){
+      $("#main-content-area").load("static_content/404.xml");
+    }
 
     window.addEventListener('DOMContentLoaded', function() {
       close_loading_preview();
@@ -169,30 +172,36 @@
 
   <!-- 初始化 -->
   <script>
-    // $("#main-content-area").load("static_content/main_page.xml");
-
+    // 路由表
     var route_list = {
       "#/": create_homepage,
       "#/introduction/": create_documentation,
       "#/demo1/": create_echarts_demo_name_follower_count,
       "#/demo2/": create_d3_demo_name_locations,
     };
-    // hash 路由
-    if(window.location.hash == ""){
-      window.location.hash = "/";
-      route_list[window.location.hash]();
-    }
-    else {
+    // hash 路由函数：根据 URL 加载相应的内容。
+    function change_content_by_hash(){
+      if(window.location.hash == ""){
+        window.location.hash = "#/";
+      }
       if(window.location.hash in route_list){
+        // if(window.location.hash == "#/"){
+        //   clear_nav_hightlight();
+        // }
         route_list[window.location.hash]();
         console.log("hash:", window.location.hash);
-      } else {console.log("hash not exists:", window.location.hash);}
+      } else {
+        clear_nav_hightlight();
+        create_404_page();
+        console.log("hash not exists:", window.location.hash);
+      }
     }
+    // 监听路由变化
     window.addEventListener('hashchange', function() {
-      if(window.location.hash in route_list){ route_list[window.location.hash]();}
-      
-      console.log("hashchange:", window.location.hash);
+      change_content_by_hash();
     }, false);
+
+    change_content_by_hash();
   </script>
 
   <!-- 测试专用区 -->
