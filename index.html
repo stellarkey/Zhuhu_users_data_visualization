@@ -42,7 +42,7 @@
   <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
       <div class="layui-logo">
-        <a id="header-logo" href="./" style="color: #1E9FFF; font-weight: 800; font-size: 20px; font-family:kaiti;">10W+知乎用户可视化</a>
+        <a id="header-logo" href="#/" style="color: #1E9FFF; font-weight: 800; font-size: 20px; font-family:kaiti;">10W+知乎用户可视化</a>
       </div>
       <!-- 头部区域（可配合layui 已有的水平导航） -->
       <ul class="layui-nav layui-layout-left">
@@ -50,14 +50,14 @@
         <li class="layui-nav-item layui-show-xs-inline-block layui-hide-sm" lay-header-event="menuLeft">
           <i class="layui-icon layui-icon-spread-left"></i>
         </li>
-        <li class="layui-nav-item layui-hide-xs"><a href="javascript:create_homepage();">首页</a></li>
-        <li class="layui-nav-item layui-hide-xs"><a href="javascript:create_documentation();">简介</a></li>
+        <li class="layui-nav-item layui-hide-xs"><a href="#/">首页</a></li>
+        <li class="layui-nav-item layui-hide-xs"><a href="#/introduction/">简介</a></li>
         <li class="layui-nav-item">
           <a href="javascript:;">演示示例</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:create_echarts_demo_name_follower_count();">Demo 1: 知乎用户关注数统计（折线图）</a></dd>
-            <dd><a id="test-functionality" href="javascript:create_d3_demo_name_locations();">Demo 2: 知乎用户地理位置分布（地图）</a></dd>
-            <dd><a href="javascript:;">Demo 3</a></dd> 
+            <dd><a href="#/demo1/">Demo 1: 知乎用户关注数统计（折线图）</a></dd>
+            <dd><a id="test-functionality" href="#/demo2/">Demo 2: 知乎用户地理位置分布（地图）</a></dd>
+            <dd><a href="#/demo3/">Demo 3</a></dd> 
           </dl>
         </li>
         <!-- <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">数据探索</a></li>
@@ -169,7 +169,30 @@
 
   <!-- 初始化 -->
   <script>
-    $("#main-content-area").load("static_content/main_page.xml");
+    // $("#main-content-area").load("static_content/main_page.xml");
+
+    var route_list = {
+      "#/": create_homepage,
+      "#/introduction/": create_documentation,
+      "#/demo1/": create_echarts_demo_name_follower_count,
+      "#/demo2/": create_d3_demo_name_locations,
+    };
+    // hash 路由
+    if(window.location.hash == ""){
+      window.location.hash = "/";
+      route_list[window.location.hash]();
+    }
+    else {
+      if(window.location.hash in route_list){
+        route_list[window.location.hash]();
+        console.log("hash:", window.location.hash);
+      } else {console.log("hash not exists:", window.location.hash);}
+    }
+    window.addEventListener('hashchange', function() {
+      if(window.location.hash in route_list){ route_list[window.location.hash]();}
+      
+      console.log("hashchange:", window.location.hash);
+    }, false);
   </script>
 
   <!-- 测试专用区 -->
