@@ -131,11 +131,9 @@
   </script>
 
   <!-- 可视化提案  -->
-  <script src="js/documentation.js"></script>
   <script>
-    var my_documentation = new Documentation();
     function create_documentation(){
-      my_documentation.create_documentation_at('main-content-area');
+      $("#main-content-area").load("static_content/documentation.xml");
     }
   </script>
 
@@ -161,7 +159,7 @@
   <!-- 通用功能区 -->
   <script>
     function create_homepage(){
-      create_homepage_at('main-content-area');
+      $("#main-content-area").load("static_content/main_page.xml");
     }
 
     window.addEventListener('DOMContentLoaded', function() {
@@ -171,7 +169,7 @@
 
   <!-- 初始化 -->
   <script>
-    create_homepage_at('main-content-area');
+    $("#main-content-area").load("static_content/main_page.xml");
   </script>
 
   <!-- 测试专用区 -->
