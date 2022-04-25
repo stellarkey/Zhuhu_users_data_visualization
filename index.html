@@ -164,10 +164,6 @@
     function create_404_page(){
       $("#main-content-area").load("static_content/404.xml");
     }
-
-    window.addEventListener('DOMContentLoaded', function() {
-      close_loading_preview();
-    });
   </script>
 
   <!-- 初始化 -->
@@ -185,9 +181,6 @@
         window.location.hash = "#/";
       }
       if(window.location.hash in route_list){
-        // if(window.location.hash == "#/"){
-        //   clear_nav_hightlight();
-        // }
         route_list[window.location.hash]();
         console.log("hash:", window.location.hash);
       } else {
@@ -200,6 +193,11 @@
     window.addEventListener('hashchange', function() {
       change_content_by_hash();
     }, false);
+    
+
+    document.getElementById('main-content-area').addEventListener('DOMContentLoaded', function() {
+      close_loading_preview();
+    });
 
     change_content_by_hash();
   </script>
