@@ -177,6 +177,7 @@
     };
     // hash 路由函数：根据 URL 加载相应的内容。
     function change_content_by_hash(){
+      close_loading_preview();
       if(window.location.hash == ""){
         window.location.hash = "#/";
       }
