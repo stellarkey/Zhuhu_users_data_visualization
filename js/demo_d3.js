@@ -4,12 +4,14 @@ class D3Demo {
   create_d3_demo_name_locations(element_id){
     open_loading_preview();
     
-    document.getElementById(element_id).innerHTML = '<svg width="1200" height="750" id="Map_svg" class="svgs" style="display: block; margin: 0 auto;"></svg>';
+    document.getElementById(element_id).innerHTML = '<svg id="Map_svg" class="svgs" style="display: block; margin: 0 auto;"></svg>';
     
     let d3_svg = d3.select(document.getElementById("Map_svg")).node();
     $.getJSON("data/China.json").then(data => {
       $.getJSON("data/count_analytics/locations_count.json").then(data_count => {
         const svg = d3.select(d3_svg);
+        svg.attr("width",  window.innerWidth * 0.75);
+        svg.attr("height", window.innerWidth * 0.55);
         const width = svg.attr('width');
         const height = svg.attr('height');
         const margin = { top: 60, right: 0, bottom: 0, left: 0 };

@@ -168,10 +168,13 @@ class RandomChoiseDemo {
       }
 
       let myTimeout = setTimeout(render_grid, 3000);
-
+      
       document.getElementById("img-genshin-choise").addEventListener("click", function() {
         clearTimeout(myTimeout);
         render_grid();
+      });
+      window.addEventListener("click", function() {
+        clearTimeout(myTimeout);
       });
     
       close_loading_preview();
