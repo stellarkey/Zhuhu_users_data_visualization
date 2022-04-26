@@ -3,7 +3,10 @@ class RandomChoiseDemo {
 
   create_demo_random_choise(element_id){
     open_loading_preview();
-
+    
+    function random(lo, hi){
+      return Math.floor(Math.random() * (hi-lo)) + lo;
+    }
     $("#"+element_id).load("static_content/genshin-purple-choise-animation.html", function(){
       let translate_columns = {
         "name": "昵称",
@@ -102,17 +105,17 @@ class RandomChoiseDemo {
           width: "120px",
         },
       ]
-      var grid_demo;
+      let grid_demo;
+      let ret_list_of_list = [];
+      let data;
+      let random_split_range_id = random(0, 100) *1000;
       if(window.location.hash == "#/demo3/"){
-        function random(lo, hi){
-          return Math.floor(Math.random() * (hi-lo)) + lo;
-        }
-        let random_split_range_id = random(0, 100) *1000;
-        $.getJSON("data/data_split/data_files_split_by_id/data_"+random_split_range_id+".json").then(data => {
+        
+        $.getJSON("data/data_split/data_files_split_by_id/data_"+random_split_range_id+".json").then(raw_data => {
+          data = raw_data;
           // console.log("OK");
           // console.log("random_split_range_id:",random_split_range_id);
           // console.log(data);
-          let ret_list_of_list = [];
           for (let ele in data){
             let tmp_list = [];
             for (let column in en_columns){
@@ -122,13 +125,6 @@ class RandomChoiseDemo {
             ret_list_of_list.push(tmp_list);
           }
           console.log(ret_list_of_list);
-          let test_list_of_list = [
-            ["John", "john@example.com", "(353) 01 222 3333"],
-            ["Mark", "mark@gmail.com", "(01) 22 888 4444"],
-            ["Eoin", "eoin@gmail.com", "0097 22 654 00033"],
-            ["Sarah", "sarahcdd@gmail.com", "+322 876 1233"],
-            ["Afshin", "afshin@mail.com", "(353) 22 87 8356"]
-          ];
           grid_demo = new gridjs.Grid({
             columns: final_used_columns,
             data: ret_list_of_list,
@@ -151,19 +147,29 @@ class RandomChoiseDemo {
               }
             }
           });
-          document.getElementById(element_id).innerHTML += '<div id="wrapper" visibility="hidden"></div>';
-          grid_demo.render(document.getElementById("wrapper"));
         })
       }
 
       function render_grid(){
+        let infomation = `<h1 style="text-align:center;">🙌🙌🙌<br><br>您抽中的用户范围为: `+"["+String(random_split_range_id)+", "+ String(random_split_range_id+1000)+"]</h1>";
+        document.getElementById("platformBox").innerHTML = `<div>${infomation}</div>`;
+        let index = layer.open({
+          type:1,// type:div
+          title:"提示",
+        //   skin: 'layui-layer-rim',
+          area: ['800px', 'fit-content'],
+          shadeClose: true,
+          content:$("#platformBox"),
+        });
+        // alert("抽取用户范围:","["+String(random_split_range_id)+", "+ String(random_split_range_id+1000)+"]");
         document.getElementById("img-genshin-choise").remove();
-        document.getElementById("wrapper").setAttribute("visibility", "visible");
+        document.getElementById(element_id).innerHTML += '<div id="wrapper"></div>';
+        grid_demo.render(document.getElementById("wrapper"));
       }
 
       let myTimeout = setTimeout(render_grid, 3000);
 
-      document.getElementById(element_id).addEventListener("click", function() {
+      document.getElementById("img-genshin-choise").addEventListener("click", function() {
         clearTimeout(myTimeout);
         render_grid();
       });
