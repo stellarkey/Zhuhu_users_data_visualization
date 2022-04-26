@@ -141,7 +141,7 @@
   <script src="js/demo_echarts.js"></script>
   <script>
     var echarts_demo = new EchartsDemo();
-    function create_echarts_demo_name_follower_count(){
+    function create_demo_echarts_name_follower_count(){
       echarts_demo.create_echarts_demo_name_follower_count_at('main-content-area');
     }
   </script>  
@@ -150,7 +150,7 @@
   <script src="js/demo_d3.js"></script>
   <script>
     var d3_demo = new D3Demo();
-    function create_d3_demo_name_locations(){
+    function create_demo_d3_name_locations(){
       d3_demo.create_d3_demo_name_locations('main-content-area');
     }
   </script> 
@@ -181,8 +181,8 @@
     var route_list = {
       "#/": create_homepage,
       "#/introduction/": create_documentation,
-      "#/demo1/": create_echarts_demo_name_follower_count,
-      "#/demo2/": create_d3_demo_name_locations,
+      "#/demo1/": create_demo_echarts_name_follower_count,
+      "#/demo2/": create_demo_d3_name_locations,
       "#/demo3/": create_demo_random_choise,
     };
     // hash 路由函数：根据 URL 加载相应的内容。
