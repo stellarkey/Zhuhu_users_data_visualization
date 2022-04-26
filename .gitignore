@@ -2,3 +2,5 @@
 data/items.json
 test
 test/*
+data/data_split/*
+!data/data_split/get_split_data.ipynb
