@@ -61,7 +61,7 @@ class D3Demo {
         var myColor = d3.scaleSequential()
           .domain([0, Math.log(max_dict_filtered_name)])
           // .range(["white", "blue"]);
-          .interpolator(d3.interpolateReds);
+          .interpolator(d3.interpolateOrRd);
         mainGroup.selectAll('path').data(data.features).join('path')
           .attr('stroke', 'black').attr('fill', 'white')
           .attr('d', path)

@@ -4,6 +4,7 @@ class RandomChoiseDemo {
   create_demo_random_choise(element_id){
     open_loading_preview();
     
+    
     function random(lo, hi){
       return Math.floor(Math.random() * (hi-lo)) + lo;
     }
@@ -109,49 +110,53 @@ class RandomChoiseDemo {
       let ret_list_of_list = [];
       let data;
       let random_split_range_id = random(0, 100) *1000;
-      if(window.location.hash == "#/demo3/"){
         
-        $.getJSON("data/data_split/data_files_split_by_id/data_"+random_split_range_id+".json").then(raw_data => {
-          data = raw_data;
-          // console.log("OK");
-          // console.log("random_split_range_id:",random_split_range_id);
-          // console.log(data);
-          for (let ele in data){
-            let tmp_list = [];
-            for (let column in en_columns){
-              tmp_list.push(String(data[ele][en_columns[column]]));
-            }
-            // console.log(tmp_list);
-            ret_list_of_list.push(tmp_list);
+      $.getJSON("data/data_split/data_files_split_by_id/data_"+random_split_range_id+".json").then(raw_data => {
+        data = raw_data;
+        // console.log("OK");
+        // console.log("random_split_range_id:",random_split_range_id);
+        // console.log(data);
+        for (let ele in data){
+          let tmp_list = [];
+          for (let column in en_columns){
+            tmp_list.push(String(data[ele][en_columns[column]]));
           }
-          console.log(ret_list_of_list);
-          grid_demo = new gridjs.Grid({
-            columns: final_used_columns,
-            data: ret_list_of_list,
-            search: true,
-            // resizable: true,
-            sort: true,
-            pagination: {limit: 10},
-            style: {
-              table: {
-                border: '3px solid #ccc'
-              },
-              th: {
-                'background-color': 'rgba(0, 0, 0, 0.1)',
-                color: '#000',
-                'border-bottom': '3px solid #ccc',
-                'text-align': 'center'
-              },
-              td: {
-                // 'text-align': 'center'
-              }
+          // console.log(tmp_list);
+          ret_list_of_list.push(tmp_list);
+        }
+        // console.log(ret_list_of_list);
+        grid_demo = new gridjs.Grid({
+          columns: final_used_columns,
+          data: ret_list_of_list,
+          search: true,
+          // resizable: true,
+          sort: true,
+          pagination: {limit: 10},
+          style: {
+            table: {
+              border: '3px solid #ccc'
+            },
+            th: {
+              'background-color': 'rgba(0, 0, 0, 0.1)',
+              color: '#000',
+              'border-bottom': '3px solid #ccc',
+              'text-align': 'center'
+            },
+            td: {
+              // 'text-align': 'center'
             }
-          });
-        })
-      }
+          }
+        });
+      })
 
       function render_grid(){
-        let infomation = `<h1 style="text-align:center;">🙌🙌🙌<br><br>您抽中的用户范围为: `+"["+String(random_split_range_id)+", "+ String(random_split_range_id+1000)+"]</h1>";
+        let infomation = `
+        <h1 style="text-align:center;">🙌🙌🙌<br><br>
+        您抽中的用户范围为: `
+        +"["+String(random_split_range_id)
+        +", "+ String(random_split_range_id+1000)
+        +"]"+`
+        <a href="javascript:location.reload();" class="layui-btn layui-btn-normal">再来一发</a></h1>`;
         document.getElementById("platformBox").innerHTML = `<div>${infomation}</div>`;
         let index = layer.open({
           type:1,// type:div
@@ -162,8 +167,9 @@ class RandomChoiseDemo {
           content:$("#platformBox"),
         });
         // alert("抽取用户范围:","["+String(random_split_range_id)+", "+ String(random_split_range_id+1000)+"]");
+        
+        
         document.getElementById("img-genshin-choise").remove();
-        document.getElementById(element_id).innerHTML += '<div id="wrapper"></div>';
         grid_demo.render(document.getElementById("wrapper"));
       }
 
@@ -171,7 +177,7 @@ class RandomChoiseDemo {
       
       document.getElementById("img-genshin-choise").addEventListener("click", function() {
         clearTimeout(myTimeout);
-        render_grid();
+        setTimeout(render_grid, 300);
       });
       window.addEventListener("click", function() {
         clearTimeout(myTimeout);
