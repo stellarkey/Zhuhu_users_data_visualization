@@ -184,6 +184,45 @@
     }
   </script> 
 
+  <!-- 通用函数 -->
+  <script>
+    // 创建首页
+    function create_homepage(){
+      $("#main-content-area").load("static_content/main_page.html", function () {
+        // 创建3d词云
+        // console.log(document.getElementById('main-content-area'));
+        // console.log(document.getElementById('myCanvasContainer'));
+        try {
+          TagCanvas.Start('myCanvas','tags',{
+            interval: 20,
+            textColour: '#97d4ff',
+            outlineColour: '#fff',
+            shape: 'sphere',
+            textHeight: 25,
+            reverse: true,
+            // noMouse:true,
+            depth: 0.5,
+            dragControl: false,
+            //                    decel:0.95,
+            maxSpeed: 0.05,
+            minSpeed: 0.05,
+            initial: [-0.08, 0]
+          });
+          console.log($("#tags img"));
+          $("#tags img").attr("width", "25px").attr("height", "25px").removeAttr("style");
+        } catch(e) {
+          // something went wrong, hide the canvas container
+          document.getElementById('myCanvasContainer').style.display = 'none';
+          console.log(e);
+        }
+      });   
+    }
+
+    // 创建404页面
+    function create_404_page(){
+      $("#main-content-area").load("static_content/404.html");
+    }
+  </script>
 
   <!-- 初始化 -->
   <script>
@@ -201,6 +240,8 @@
       close_loading_preview();
       if(window.location.hash == ""){
         window.location.hash = "#/";
+        change_content_by_hash();
+        return;
       }
       if(window.location.hash in route_list){
         route_list[window.location.hash]();
@@ -213,7 +254,7 @@
     }
     // 监听路由变化
     window.addEventListener('hashchange', function() {
-      change_content_by_hash();
+        change_content_by_hash();
     }, false);
     
 
