@@ -66,7 +66,6 @@ class D3Demo {
           .attr('stroke', 'black').attr('fill', 'white')
           .attr('d', path)
           .attr('id', d => d.properties.name)
-          .attr('fill', d => myColor(Math.log(d.properties.count)) )
           .attr('opacity', 0.75)
           .on('mouseover', function(d, i) {
             tip.show(d, i);
@@ -77,7 +76,11 @@ class D3Demo {
             tip.hide(d, i);
             d3.select(this)
               .attr('opacity', 0.75);
-          });
+          })
+          .transition()
+            .ease(d3.easeExpInOut)
+            .duration(1500)
+            .attr('fill', d => myColor(Math.log(d.properties.count)) );
         
         close_loading_preview();
       })
