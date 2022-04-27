@@ -8,6 +8,9 @@ class BarplotDemo {
     
     let d3_svg = d3.select(document.getElementById("bar_svg")).node();
     $.getJSON("data/count_analytics/locations_count.json").then(data => {
+      // 只取前30名
+      data = data.slice(0,30);
+
       const svg = d3.select(d3_svg);
       svg.attr("width",  window.innerWidth * 0.75);
       svg.attr("height", window.innerHeight * 0.75);
@@ -25,9 +28,15 @@ class BarplotDemo {
       // console.log(data);
       
       
+      // 饼图参数
       const subGroup = svg.append('g')
         .attr('transform', `translate(${margin.left}, ${margin.top})`);
-
+      const path = d3.arc().innerRadius(window.innerHeight * 0.05).outerRadius(window.innerHeight * 0.2);
+      const path_highlight = d3.arc().innerRadius(window.innerHeight * 0.08).outerRadius(window.innerHeight * 0.25);
+      const pie = d3.pie().value(yValue);
+      const arcData = pie(data);
+  
+        
       svg.append("text")
         .attr("id", "locations-title")
         .attr("transform",
@@ -47,7 +56,7 @@ class BarplotDemo {
         .html((event, d) => d.location + ": " + d.count);
       subGroup.call(tip2);
 
-      data = data.slice(0,30);
+      
       xScale.domain(data.map(xValue)).range([0, innerWidth]).padding(0.1);
       yScale.domain([0, d3.max(data, yValue)]).range([0, innerHeight]);
       
@@ -69,7 +78,10 @@ class BarplotDemo {
             .attr('opacity', 1);
           let selector = `#${d3.select(this).attr("id").replace("rect", "path")}`;
           d3.select(selector)
-            .attr('opacity', 1);
+            .transition()
+              .duration(300)
+              .attr('opacity', 1)
+              .attr("d", path_highlight);
         })
         .on('mouseout', function(e, d) {
           tip.hide(e, d);
@@ -77,7 +89,10 @@ class BarplotDemo {
             .attr('opacity', 0.75);
           let selector = `#${d3.select(this).attr("id").replace("rect", "path")}`;
           d3.select(selector)
-            .attr('opacity', 0.75);
+            .transition()
+              .duration(300)
+              .attr('opacity', 0.75)
+              .attr("d", path);
         })
         .transition()
           .ease(d3.easeExpInOut)
@@ -87,11 +102,9 @@ class BarplotDemo {
           .style("fill", function(d,i) { return myColor(i) });
       
       
-      const pie = d3.pie().value(yValue);
-      const arcData = pie(data);
-
       
-      const path = d3.arc().innerRadius(window.innerHeight * 0.05).outerRadius(window.innerHeight * 0.2);
+      
+      
       const color = d3.scaleOrdinal()
         .domain(data.map(xValue))
         .range(d3.schemeSet2.concat(d3.schemeSet3));
@@ -100,13 +113,16 @@ class BarplotDemo {
         .attr("id", (d, i) => "path"+i)
         .attr('count', xValue)
         .attr('location', yValue)
-        .attr('transform', `translate(${width * 0.85}, ${height * 0.4})`)
+        .attr('transform', `translate(${width * 0.80}, ${height * 0.35})`)
         .attr('fill', d => color(d.data.location))
         .attr('opacity', 0.75)
         .on('mouseover', function(e, d) {
           tip2.show(e, d.data);
           d3.select(this)
-            .attr('opacity', 1);
+            .transition()
+              .duration(300)
+              .attr('opacity', 1)
+              .attr("d", path_highlight);
           let selector = `#${d3.select(this).attr("id").replace("path", "rect")}`;
           d3.select(selector)
             .attr('opacity', 1);
@@ -114,7 +130,10 @@ class BarplotDemo {
         .on('mouseout', function(e, d) {
           tip2.hide(e, d.data);
           d3.select(this)
-            .attr('opacity', 0.75);
+            .transition()
+              .duration(300)
+              .attr('opacity', 0.75)
+              .attr("d", path);
           let selector = `#${d3.select(this).attr("id").replace("path", "rect")}`;
           d3.select(selector)
             .attr('opacity', 0.75);
@@ -130,7 +149,7 @@ class BarplotDemo {
                 // console.log(d);
               return path(d);
             }
-         });
+          });
 
       close_loading_preview();
     })
