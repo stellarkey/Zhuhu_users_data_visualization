@@ -8,7 +8,7 @@ class D3Demo {
     
     let d3_svg = d3.select(document.getElementById("Map_svg")).node();
     $.getJSON("data/China.json").then(data => {
-      $.getJSON("data/count_analytics/locations_count.json").then(data_count => {
+      $.getJSON("data/count_analytics/dict_locations_count.json").then(data_count => {
         const svg = d3.select(d3_svg);
         svg.attr("width",  window.innerWidth * 0.75);
         svg.attr("height", window.innerWidth * 0.55);
@@ -78,7 +78,7 @@ class D3Demo {
             d3.select(this)
               .attr('opacity', 0.75);
           });
-
+        
         close_loading_preview();
       })
     })

@@ -23,6 +23,7 @@
   <script src="js/main_control_functions.js"></script>
   <link rel="stylesheet" href="css/preview.css" />
   <link rel="stylesheet" href="css/content.css" />
+  <link rel="stylesheet" href="css/d3-tip.css" />
 </head>
 
 <body>
@@ -60,8 +61,9 @@
           <a href="javascript:;">演示示例</a>
           <dl class="layui-nav-child">
             <dd><a href="#/demo1/">Demo 1: 知乎用户关注数统计（折线图）</a></dd>
-            <dd><a id="test-functionality" href="#/demo2/">Demo 2: 知乎用户地理位置分布（地图）</a></dd>
-            <dd><a href="#/demo3/">Demo 3：随机抽取用户（表格）</a></dd> 
+            <dd><a id="test-functionality" href="#/demo2/">Demo 2: 知乎用户分布地理位置可视化（地图）</a></dd>
+            <dd><a href="#/demo3/">Demo 3: 随机抽取知乎用户（表格）</a></dd>
+            <dd><a href="#/demo4/">Demo 4: 知乎用户聚合信息统计（柱状图等）</a></dd>
           </dl>
         </li>
         <!-- <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">数据探索</a></li>
@@ -168,6 +170,14 @@
     }
   </script> 
 
+  <!-- 演示示例4 -->
+  <script src="js/demo_barplot.js"></script>
+  <script>
+    var barplot_demo = new BarplotDemo();
+    function create_demo_barplot(){
+      barplot_demo.create_demo_barplot_locations_at('main-content-area');
+    }
+  </script> 
 
   <!-- 通用功能区 -->
   <script>
@@ -188,6 +198,7 @@
       "#/demo1/": create_demo_echarts_name_follower_count,
       "#/demo2/": create_demo_d3_name_locations,
       "#/demo3/": create_demo_random_choise,
+      "#/demo4/": create_demo_barplot,
     };
     // hash 路由函数：根据 URL 加载相应的内容。
     function change_content_by_hash(){
