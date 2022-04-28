@@ -44,7 +44,7 @@ class BarplotDemo {
                           (0.5*margin.top) + ")")
         .style("text-anchor", "middle")
         .style("font-size", "1.5em")
-        .text("用户分布地理位置可视化（柱状图）");
+        .text("用户分布地理位置可视化（联合图表）");
 
       const tip = d3.tip()
         .attr('class', 'd3-tip')
