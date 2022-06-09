@@ -12,7 +12,6 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://unpkg.com/d3-v6-tip@1.0.6/build/d3-v6-tip.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bumbeishvili/d3-tip-for-v6@4/d3-tip.min.css">
   <script src="js/layui-v2.6.8/layui/layui.js"></script>
   <link rel="stylesheet" href="js/layui-v2.6.8/layui/css/layui.css" />
   <script src="https://cdn.staticfile.org/echarts/4.7.0/echarts.min.js"></script>
@@ -66,6 +65,7 @@
             <dd><a href="#/demo4/">Demo 4: 知乎用户聚合信息统计（联合图表）</a></dd>
           </dl>
         </li>
+        <li class="layui-nav-item layui-hide-xs"><a href="#/data-discover/">数据探索</a></li>
         <!-- <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">数据探索</a></li>
         <li class="layui-nav-item">
           <a href="javascript:;">nav groups</a>
@@ -182,6 +182,15 @@
     function create_demo_barplot(){
       barplot_demo.create_demo_barplot_locations_at('main-content-area');
     }
+  </script>
+
+  <!-- 页面：数据探索 -->
+  <script src="js/data_discover.js"></script>
+  <script>
+    var data_discover = new DataDiscover();
+    function create_data_discover(){
+      data_discover.create_data_discover_at('main-content-area');
+    }
   </script> 
 
   <!-- 通用函数 -->
@@ -234,6 +243,7 @@
       "#/demo2/": create_demo_d3_name_locations,
       "#/demo3/": create_demo_random_choise,
       "#/demo4/": create_demo_barplot,
+      "#/data-discover/": create_data_discover
     };
     // hash 路由函数：根据 URL 加载相应的内容。
     function change_content_by_hash(){
@@ -254,7 +264,7 @@
     }
     // 监听路由变化
     window.addEventListener('hashchange', function() {
-        change_content_by_hash();
+      change_content_by_hash();
     }, false);
     
 

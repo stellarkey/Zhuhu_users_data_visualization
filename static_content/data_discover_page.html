@@ -1,0 +1,10 @@
+<div class="layui-form-item">
+  <label class="layui-form-label">搜索</label>
+  <div class="layui-input-block">
+    <input id="search-text" onkeydown='if(event.keyCode==13) {document.getElementById("search-button").click()}' type="text" name="title" required  lay-verify="required" placeholder="请输入关键词查询（默认：数据可视化）" autocomplete="off" class="layui-input">
+  </div>
+  <button id="search-button" type="button" class="layui-btn">开始搜索</button>
+</div>
+
+<div id="search-result"></div>
+<div id="data-visualization"></div>
