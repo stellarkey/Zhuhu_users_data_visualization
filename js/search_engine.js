@@ -1,7 +1,7 @@
-class DataDiscover {
+class SearchEngine {
   constructor() {  }
 
-  create_data_discover_at(element_id){
+  create_search_engine_at(element_id){
     open_loading_preview();
     // console.log(element_id)
     // console.log(document.getElementById(element_id))
@@ -109,7 +109,7 @@ class DataDiscover {
     ]
     var grid;
     
-    $("#"+element_id).load("static_content/data_discover_page.html", function(){
+    $("#"+element_id).load("static_content/search_engine_page.html", function(){
       document.getElementById("search-button").onclick = function(){
         let search_text = document.getElementById("search-text").value;
         if(search_text == "") {

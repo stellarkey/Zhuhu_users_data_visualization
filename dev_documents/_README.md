@@ -1,6 +1,38 @@
 # 10W+知乎用户可视化方案开发文档
 
+## 数据集
+
+> [北京大学开放研究数据平台](https://opendata.pku.edu.cn/dataverse/pku)
+
 数据量：`100018`。
+
+### 字段
+
+> https://github.com/KEN-LJQ/ZhihuSpider
+>
+> > 本数据集应该是在上述爬虫的基础上修改后爬取而来。
+
+| 字段           | 含义                             | 类型 |
+| -------------- | -------------------------------- | -------------- |
+| url_token          | 用户标识字段                     | string |
+| name       | 用户昵称                         | string |
+| avatar_url     | 用户头像URL                      | string |
+| user_type          | 用户类别                     | string |
+| headline       | 用户的个性签名                 | string |
+| description    | 用户描述                         | string |
+| business       | 所在行业                         | {…} |
+| locations      | 居住地                           | [{…}, {…}, …] |
+| employments    | 工作经历                         | [{…}, {…}, …] |
+| educations     | 教育经历                         | [{…}, {…}, …] |
+| gender         | 性别（男1，女-1，未知0）              | int(-1, 0 ,1) |
+| favorited_count | 该用户的被收藏数         | int |
+| thanked_count | 该用户的被收藏数         | int |
+| following_count | 该用户正在关注的用户数目         | int |
+| follower_count  | 关注该用户的用户数目             | int |
+| answer_count    | 该用户回答的问题的数目           | int |
+| articles_count    | 该用户撰写的文章的数目           | int |
+| question_count  | 该用户提问的问题数目             | int |
+| voteup_count    | 该用户获得赞的数目               | int |
 
 ## 主要技术
 
@@ -12,7 +44,7 @@
   - Grid.js
 - 前端
   - *HTML + CSS + JavaScript*
-  - Layerui.js
+  - [Layerui.js](https://layui.itze.cn/)
 - 后端
   - *Python + Java JDK*
   - Elasticsearch
@@ -67,6 +99,8 @@
 同时支持筛选，比如：按地理位置、按教育程度筛选。
 
 ## 基础数据分析
+
+> 按照 [https://www.jianshu.com/p/962bc581e03a](https://www.jianshu.com/p/962bc581e03a) 的思路复现。
 
 ### 知乎用户职业背景
 

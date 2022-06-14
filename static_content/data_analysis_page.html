@@ -1,0 +1,78 @@
+<style>
+  p {
+    font-size: larger;
+  }
+  h1, h2 {
+    padding: 10px;
+  }
+  .data_analysis_pie_chart {
+    height: 800px;
+  }
+  .data_analysis_bar_chart {
+    height: 500px;
+  }
+</style>
+<div id="data_analysis" style="width: 80%; margin: 0 auto;">
+  <p style="text-align: center; font-style: italic;">Hello, Data Analysis!</p>
+  <p>数据分析部分主要通过<b>预处理</b>得到的总体数据进行<b>静态分析</b>。</p>
+  <hr />
+  <div class="layui-tab layui-tab-brief" lay-filter="data_analysis">
+    <ul class="layui-tab-title">
+      <li class="layui-this">地域分布</li>
+      <li>教育程度-学校</li>
+      <li>教育程度-专业</li>
+      <li>职业背景</li>
+      <li>就职公司</li>
+      <li>所属领域</li>
+      <li>性别比例</li>
+      <li>用户类别</li>
+      <li>数值活跃度</li>
+    </ul>
+    <div class="layui-tab-content">
+      <div class="layui-tab-item layui-show">
+        <h1>知乎用户地域分布</h1>
+        <div id="bar-locations" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-locations" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>知乎用户教育程度（按学校）</h1>
+        <div id="bar-educations_school" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-educations_school" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>知乎用户教育程度（按专业）</h1>
+        <div id="bar-educations_major" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-educations_major" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>知乎用户职业背景（职业）</h1>
+        <div id="bar-employments_job" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-employments_job" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>知乎用户职业背景（就职公司）</h1>
+        <div id="bar-employments_company" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-employments_company" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>知乎用户所属领域</h1>
+        <div id="bar-business" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-business" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>知乎用户性别比例</h1>
+        <div id="bar-gender" class="data_analysis_bar_chart" style="height: 200px;">在这里加载Echarts Bar</div>
+        <div id="pie-gender" class="data_analysis_pie_chart" style="height: 300px;">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>知乎用户用户类别</h1>
+        <div id="bar-user_type" class="data_analysis_bar_chart" style="height: 200px;">在这里加载Echarts Bar</div>
+        <div id="pie-user_type" class="data_analysis_pie_chart" style="height: 300px;">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>知乎用户数值活跃度分析</h1>
+      </div>
+    </div>
+  </div>
+  
+</div>

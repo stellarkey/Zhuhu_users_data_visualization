@@ -10,6 +10,7 @@
 
   <!-- 通用库 -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://unpkg.com/d3-v6-tip@1.0.6/build/d3-v6-tip.js"></script>
   <script src="js/layui-v2.6.8/layui/layui.js"></script>
@@ -20,6 +21,7 @@
   <script src="js/tagcanvas.js"></script>
   <!-- 自定义资源 -->
   <script src="js/main_control_functions.js"></script>
+  <script src="js/util.js"></script>
   <link rel="stylesheet" href="css/preview.css" />
   <link rel="stylesheet" href="css/content.css" />
   <link rel="stylesheet" href="css/d3-tip.css" />
@@ -65,16 +67,26 @@
             <dd><a href="#/demo4/">Demo 4: 知乎用户聚合信息统计（联合图表）</a></dd>
           </dl>
         </li>
-        <li class="layui-nav-item layui-hide-xs"><a href="#/data-discover/">数据探索</a></li>
-        <!-- <li class="layui-nav-item layui-hide-xs"><a href="javascript:;">数据探索</a></li>
         <li class="layui-nav-item">
-          <a href="javascript:;">nav groups</a>
+          <a href="javascript:;">数据可视化</a>
           <dl class="layui-nav-child">
-            <dd><a href="">menu 11</a></dd>
-            <dd><a href="">menu 22</a></dd>
-            <dd><a href="">menu 33</a></dd>
+            <dd><a href="">用户分布地理位置可视化</a></dd>
+            <dd><a href="">用户教育程度、职业背景可视化</a></dd>
+            <dd><a href="">用户社交统计可视化</a></dd>
           </dl>
-        </li> -->
+        </li>
+        <li class="layui-nav-item layui-hide-xs"><a href="#/data-analysis/">数据分析</a></li>
+        
+        <li class="layui-nav-item">
+          <a href="javascript:;">数据探索</a>
+          <dl class="layui-nav-child">
+            <dd><a href="#/search-engine/">全文搜索引擎</a></dd>
+            <dd><a href="">item</a></dd>
+            <dd><a href="">item</a></dd>
+          </dl>
+        </li>
+        
+        <li class="layui-nav-item layui-hide-xs"><a target="_blank" href="https://vel.wiki/#/项目/数据可视化/Zhuhu_users_data_visualization/dev_documents/_README.md">开发文档</a></li>
       </ul>
       <ul class="layui-nav layui-layout-right">
         <li class="layui-nav-item layui-hide layui-show-md-inline-block">
@@ -185,13 +197,23 @@
   </script>
 
   <!-- 页面：数据探索 -->
-  <script src="js/data_discover.js"></script>
+  <script src="js/search_engine.js"></script>
   <script>
-    var data_discover = new DataDiscover();
-    function create_data_discover(){
-      data_discover.create_data_discover_at('main-content-area');
+    var search_engine = new SearchEngine();
+    function create_search_engine(){
+      search_engine.create_search_engine_at('main-content-area');
     }
   </script> 
+
+  <!-- 页面：数据分析 -->
+  <script src="js/data_analysis.js"></script>
+  <script>
+    var data_analysis = new DataAnalysis();
+    function create_data_analysis(){
+      data_analysis.create_data_analysis_at('main-content-area');
+    }
+  </script> 
+
 
   <!-- 通用函数 -->
   <script>
@@ -243,7 +265,8 @@
       "#/demo2/": create_demo_d3_name_locations,
       "#/demo3/": create_demo_random_choise,
       "#/demo4/": create_demo_barplot,
-      "#/data-discover/": create_data_discover
+      "#/search-engine/": create_search_engine,
+      "#/data-analysis/": create_data_analysis,
     };
     // hash 路由函数：根据 URL 加载相应的内容。
     function change_content_by_hash(){

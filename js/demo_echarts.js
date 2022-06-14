@@ -12,8 +12,8 @@ class EchartsDemo {
     let myChart = echarts.init(document.getElementById("echarts-name_follower_count"));
     $.getJSON("data/data_name_follower_count.json").then(data => {
       // 指定图表的配置项和数据
-      var list_name = []
-      var list_follower_count = []
+      let list_name = []
+      let list_follower_count = []
       for(let record in data["name"]){
         if(data["follower_count"][record] > 0){
           list_name.push(data["name"][record]);
@@ -21,7 +21,7 @@ class EchartsDemo {
         }
       }
       // console.log(list_name);
-      var option = {
+      let option = {
         title: {
           left: "center",
           text: '知乎用户关注数'

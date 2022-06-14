@@ -1,0 +1,175 @@
+class DataAnalysis {
+  constructor() {  }
+
+  create_data_analysis_at(element_id){
+    open_loading_preview();
+    // console.log(element_id)
+    // console.log(document.getElementById(element_id))
+    document.getElementById(element_id).innerHTML = "数据分析模块初始化……";
+    
+    
+    $("#"+element_id).load("static_content/data_analysis_page.html", function(){
+      var analysis_element_list = [
+        "locations",
+        "educations_school",
+        "educations_major",
+        "employments_job",
+        "employments_company",
+        "business",
+        "gender",
+        "user_type",
+      ];
+      let idx = 0;
+      $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
+        getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
+        getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
+      })
+      layui.use('element', function(){
+          var element = layui.element;
+        element.on('tab(data_analysis)', function(data){
+          // console.log(this); //当前Tab标题所在的原始DOM元素
+          // console.log(data.index); //得到当前Tab的所在下标
+          // console.log(data.elem); //得到当前的Tab大容器
+          let idx = data.index;
+          $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
+            getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
+            getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
+          })
+        });
+      });
+      close_loading_preview();
+    });
+  }
+}
+
+
+function getDataAnalysisBarPlot(plot_element_id, data){
+  let atttribute_name = plot_element_id.split("-")[1];
+  console.log(translate_columns[atttribute_name], "data:", data)
+  let data_list = [], name_list = [], value_list = [];
+  for(let key in data){
+    data_list.push({"name": key, "value": data[key]});
+  }
+  data_list.sort(function(a, b){
+    return b["value"] - a["value"];
+  })
+  data_list = data_list.slice(0,20);
+  console.log("data_list:", data_list);
+  data_list.sort(function(a, b){
+    return a["value"] - b["value"];
+  })
+  for(let ele in data_list){
+    name_list.push(data_list[ele]["name"]);
+    value_list.push(data_list[ele]["value"]);
+  }
+  console.log("name_list:", name_list);
+  console.log("value_list:", value_list);
+  let myColorList = [
+    d3.scaleSequential().domain([0, value_list.length]).interpolator(d3.interpolateRainbow),
+    d3.scaleSequential().domain([0, value_list.length]).interpolator(d3.interpolateSinebow),
+    d3.scaleSequential().domain([0, value_list.length]).interpolator(d3.interpolateTurbo),
+  ];
+  let myColor = myColorList[Math.floor(Math.random() * myColorList.length)];
+  let myChart = echarts.init(document.getElementById(plot_element_id));
+      let option = {
+        toolbox: {
+          show: true,
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c}'
+          // formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        yAxis: {
+          type: 'category',
+          data: name_list
+        },
+        xAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: translate_columns[atttribute_name],
+            type: 'bar',
+            data: value_list,
+            itemStyle: {
+              normal: {
+                // 定制显示（按顺序）
+                color: function(params) { 
+                  return myColor(params.dataIndex) 
+                }
+              },
+            }
+          }
+        ]
+      };
+      console.log("myColor:", myColor)
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+}
+
+
+function getDataAnalysisPiePlot(plot_element_id, data){
+  let atttribute_name = plot_element_id.split("-")[1];
+  // let atttribute_name = plot_element_id.replace("_count", "");
+  console.log(translate_columns[atttribute_name], "data:", data)
+  let data_list = [], name_list = [], value_list = [];
+  for(let key in data){
+    data_list.push({"name": key, "value": data[key]});
+  }
+  data_list.sort(function(a, b){
+    return b["value"] - a["value"];
+  })
+  data_list = data_list.slice(0,100);
+  console.log("data_list:", data_list);
+  // data_list.sort(function(a, b){
+  //   return a["value"] - b["value"];
+  // })
+  let myChart = echarts.init(document.getElementById(plot_element_id));
+      let option = {
+        color: ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
+        toolbox: {
+          show: true,
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        legend: {
+          bottom: '0%',
+          left: 'center'
+        },
+        series: [
+          {
+            name: translate_columns[atttribute_name],
+            type: 'pie',
+            center: ['50%', '40%'],
+            radius: ['45%', '65%'],
+            avoidLabelOverlap: false,
+            itemStyle: {
+              borderRadius: 10,
+              borderColor: '#fff',
+              borderWidth: 0
+            },
+            label: {
+              show: false,
+              position: 'center'
+            },
+            emphasis: {
+              label: {
+                show: true,
+                fontSize: '30',
+                fontWeight: 'bold',
+                formatter: '{b} : {c} ({d}%)'
+              }
+            },
+            labelLine: {
+              show: false
+            },
+            data: data_list
+          }
+        ]
+      };
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+}
