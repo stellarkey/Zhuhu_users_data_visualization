@@ -7,8 +7,8 @@ class DataAnalysis {
     // console.log(document.getElementById(element_id))
     document.getElementById(element_id).innerHTML = "数据分析模块初始化……";
     
-    
     $("#"+element_id).load("static_content/data_analysis_page.html", function(){
+      // analysis_element_list 必须与 data_analysis_page.html 中的 tab 顺序一致
       var analysis_element_list = [
         "locations",
         "educations_school",
@@ -18,6 +18,13 @@ class DataAnalysis {
         "business",
         "gender",
         "user_type",
+        "voteup_count",
+        "favorited_count",
+        "thanked_count",
+        "answer_count",
+        "articles_count",
+        "follower_count",
+        "following_count",
       ];
       let idx = 0;
       $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
@@ -31,10 +38,35 @@ class DataAnalysis {
           // console.log(data.index); //得到当前Tab的所在下标
           // console.log(data.elem); //得到当前的Tab大容器
           let idx = data.index;
-          $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
-            getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
-            getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
-          })
+          if (! analysis_element_list[idx].includes("_count")){
+            $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
+              getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
+              getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
+            })
+          }
+          else{
+            function show_all_counts(idx, maxidx){
+              if(idx < maxidx){
+                $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
+                  getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data, true, false);
+                }).then( nothing => {
+                  show_all_counts(idx + 1, maxidx);
+                })
+              }
+              else return;
+            }
+            show_all_counts(idx, analysis_element_list.length);
+            // while(idx < analysis_element_list.length){
+            //   console.log("idx:", idx);
+            //   console.log("analysis_element_list[idx]:", analysis_element_list[idx]);
+            //   $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
+            //     getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data, true);
+            //   });
+            //   idx += 1;
+            // }
+            
+          }
+          
         });
       });
       close_loading_preview();
@@ -109,7 +141,7 @@ function getDataAnalysisBarPlot(plot_element_id, data){
 }
 
 
-function getDataAnalysisPiePlot(plot_element_id, data){
+function getDataAnalysisPiePlot(plot_element_id, data, show_title=false, ordered=true){
   let atttribute_name = plot_element_id.split("-")[1];
   // let atttribute_name = plot_element_id.replace("_count", "");
   console.log(translate_columns[atttribute_name], "data:", data)
@@ -117,16 +149,25 @@ function getDataAnalysisPiePlot(plot_element_id, data){
   for(let key in data){
     data_list.push({"name": key, "value": data[key]});
   }
-  data_list.sort(function(a, b){
-    return b["value"] - a["value"];
-  })
+  if(ordered){
+    data_list.sort(function(a, b){
+      return b["value"] - a["value"];
+    })
+  }else{
+    data_list.sort(function(a, b){
+      return a["name"].split(",")[0].replace("[", "") - b["name"].split(",")[0].replace("[", "");
+    })
+  }
+  
   data_list = data_list.slice(0,100);
   console.log("data_list:", data_list);
-  // data_list.sort(function(a, b){
-  //   return a["value"] - b["value"];
-  // })
   let myChart = echarts.init(document.getElementById(plot_element_id));
       let option = {
+        title: {
+          show: show_title,
+          text: translate_columns[atttribute_name],
+          x: 'center'
+        },
         color: ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
         toolbox: {
           show: true,

@@ -26,7 +26,7 @@
 | educations     | 教育经历                         | [{…}, {…}, …] |
 | gender         | 性别（男1，女-1，未知0）              | int(-1, 0 ,1) |
 | favorited_count | 该用户的被收藏数         | int |
-| thanked_count | 该用户的被收藏数         | int |
+| thanked_count | 该用户的被感谢数         | int |
 | following_count | 该用户正在关注的用户数目         | int |
 | follower_count  | 关注该用户的用户数目             | int |
 | answer_count    | 该用户回答的问题的数目           | int |
