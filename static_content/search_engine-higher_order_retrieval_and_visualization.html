@@ -14,7 +14,14 @@
 </style>
 <div >
   <form class="layui-form" action="">
-    <div id="div-layui-form-item-for-search" class="layui-form-item"  style="visibility: collapse;">
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <button class="layui-btn" lay-submit lay-filter="layerui-form">高级搜索</button>
+        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        <button id="hidden-form" type="button" class="layui-btn layui-btn-primary">隐藏</button>
+      </div>
+    </div>
+    <div id="div-layui-form-item-for-search" class="layui-form-item">
       <!-- <label class="layui-form-label">地区</label>
       <div id="div-layui-form-item-for-search-locations" class="layui-input-block">
         <select id="select-layui-form-item-for-search-locations" name="locations" lay-verify="required" lay-search>
@@ -27,12 +34,6 @@
         </select>
       </div>
       <br /> -->
-    </div>
-    <div class="layui-form-item">
-      <div class="layui-input-block">
-        <button class="layui-btn" lay-submit lay-filter="layerui-form">立即提交</button>
-        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-      </div>
     </div>
   </form>
 </div>
@@ -107,6 +108,19 @@
  
 <script>
   var current_index_keywords_based_visualization = 0;
+  document.getElementById('hidden-form').setAttribute("style","visibility:hidden;");
+  $("#hidden-form").on("click", function(){
+    if( document.getElementById('hidden-form').innerHTML == '隐藏' ){
+      document.getElementById('div-layui-form-item-for-search').setAttribute("style","display:none;");
+      document.getElementById('hidden-form').innerHTML = "显示";
+    }
+    else{
+      document.getElementById('div-layui-form-item-for-search').setAttribute("style","display:block;");
+      document.getElementById('hidden-form').innerHTML = "隐藏";
+    }
+    
+    console.log("click:", "hidden-form");
+  })
   layui.use('form', function(){
     var form = layui.form;
     let translate_search_columns = {
@@ -204,6 +218,7 @@
     }
     
     get_all_form();
+    $("#hidden-form").attr("style","visibility:visible;")
     
     //监听提交
     
