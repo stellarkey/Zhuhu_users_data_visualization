@@ -84,10 +84,12 @@ class DataAnalysis {
       // analysis_element_list 必须与 data_anomaly_analysis_page.html 中的 tab 顺序一致
       var analysis_element_list = [
         "following_num",
+        "answer_articles_num",
+        "voteup_thanked_num"
       ];
       let idx = 0;
       $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
-        getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
+        getDataAnomalyAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
         // getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
       })
       layui.use('element', function(){
@@ -99,7 +101,7 @@ class DataAnalysis {
           let idx = data.index;
           
           $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
-            getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
+            getDataAnomalyAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
             // getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
           })
           
@@ -246,6 +248,76 @@ function getDataAnalysisPiePlot(plot_element_id, data, show_title=false, ordered
           }
         ]
       };
+      // 使用刚指定的配置项和数据显示图表。
+      myChart.setOption(option);
+}
+
+//----------------------------------------------------------------//
+function getDataAnomalyAnalysisBarPlot(plot_element_id, data){
+  let atttribute_name = plot_element_id.split("-")[1];
+  console.log(atttribute_name, "data:", data)
+  let data_list = [], name_list = [], value_list = [];
+  for(let key in data){
+    data_list.push({"name": key, "value": data[key]});
+  }
+  data_list.sort(function(a, b){
+    return b["value"] - a["value"];
+  })
+  // data_list = data_list.slice(0,10);
+  console.log("data_list:", data_list);
+
+  for(let ele in data_list){
+    name_list.push(data_list[ele]["name"]);
+    value_list.push(data_list[ele]["value"]);
+  }
+  console.log("name_list:", name_list);
+  console.log("value_list:", value_list);
+  let myColorList = [
+    d3.scaleSequential().domain([0, value_list.length]).interpolator(d3.interpolateRainbow),
+    d3.scaleSequential().domain([0, value_list.length]).interpolator(d3.interpolateSinebow),
+    d3.scaleSequential().domain([0, value_list.length]).interpolator(d3.interpolateTurbo),
+  ];
+  let myColor = myColorList[Math.floor(Math.random() * myColorList.length)];
+  let myChart = echarts.init(document.getElementById(plot_element_id));
+      let option = {
+        toolbox: {
+          show: true,
+        },
+        tooltip: {
+          trigger: 'item',
+          formatter: '{a} <br/>{b} : {c}'
+          // formatter: '{a} <br/>{b} : {c} ({d}%)'
+        },
+        yAxis: {
+          name: atttribute_name,
+          type: 'value'
+        },
+        xAxis: {
+          type: 'category',
+          data: name_list,
+          axisLabel: { 
+            show: true, 
+            interval: 0, 
+            rotate: 45, 
+          }
+        },
+        series: [
+          {
+            name: atttribute_name,
+            type: 'bar',
+            data: value_list,
+            itemStyle: {
+              normal: {
+                // 定制显示（按顺序）
+                color: function(params) { 
+                  return myColor(params.dataIndex) 
+                }
+              },
+            }
+          }
+        ]
+      };
+      console.log("myColor:", myColor)
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
 }
