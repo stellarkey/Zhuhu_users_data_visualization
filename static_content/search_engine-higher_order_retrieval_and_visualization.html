@@ -1,0 +1,313 @@
+<style>
+  p {
+    font-size: larger;
+  }
+  h1, h2 {
+    padding: 10px;
+  }
+  .data_analysis_pie_chart {
+    height: 800px;
+  }
+  .data_analysis_bar_chart {
+    height: 500px;
+  }
+</style>
+<form class="layui-form" action="">
+  <div id="div-layui-form-item-for-search" class="layui-form-item">
+    <!-- <label class="layui-form-label">地区</label>
+    <div id="div-layui-form-item-for-search-locations" class="layui-input-block">
+      <select id="select-layui-form-item-for-search-locations" name="locations" lay-verify="required" lay-search>
+        <option value=""></option>
+        <option value="0">北京</option>
+        <option value="1">上海</option>
+        <option value="2">广州</option>
+        <option value="3">深圳</option>
+        <option value="4">杭州</option>
+      </select>
+    </div>
+    <br /> -->
+  </div>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" lay-submit lay-filter="layerui-form">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+<div id="data-visualization" style="visibility: hidden;">
+  <div class="layui-tab layui-tab-brief" lay-filter="data_analysis">
+    <ul class="layui-tab-title">
+      <li class="layui-this">地域分布</li>
+      <li>教育程度-学校</li>
+      <li>教育程度-专业</li>
+      <li>职业背景</li>
+      <li>就职公司</li>
+      <li>所属领域</li>
+      <li>性别比例</li>
+      <li>用户类别</li>
+      <li>数值活跃度</li>
+    </ul>
+    <div class="layui-tab-content">
+      <div class="layui-tab-item layui-show">
+        <h1>【高级搜索】地域分布</h1>
+        <div id="bar-locations" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-locations" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【高级搜索】教育程度（按学校）</h1>
+        <div id="bar-educations_school" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-educations_school" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【高级搜索】教育程度（按专业）</h1>
+        <div id="bar-educations_major" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-educations_major" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【高级搜索】职业背景（职业）</h1>
+        <div id="bar-employments_job" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-employments_job" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【高级搜索】职业背景（就职公司）</h1>
+        <div id="bar-employments_company" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-employments_company" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【高级搜索】所属领域</h1>
+        <div id="bar-business" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-business" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【高级搜索】性别比例</h1>
+        <div id="bar-gender" class="data_analysis_bar_chart" style="height: 200px;">在这里加载Echarts Bar</div>
+        <div id="pie-gender" class="data_analysis_pie_chart" style="height: 300px;">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【高级搜索】用户类别</h1>
+        <div id="bar-user_type" class="data_analysis_bar_chart" style="height: 200px;">在这里加载Echarts Bar</div>
+        <div id="pie-user_type" class="data_analysis_pie_chart" style="height: 300px;">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【高级搜索】数值活跃度分析</h1>
+        <div id="pie-voteup_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-favorited_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-thanked_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-answer_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-articles_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-follower_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-following_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<script>
+  var current_index_keywords_based_visualization = 0;
+  layui.use('form', function(){
+    var form = layui.form;
+    let translate_search_columns = {
+      "locations": "地区",
+      "educations_school": "就读学校",
+      "educations_major": "所学专业",
+      "employments_job": "就职岗位",
+      "employments_company": "就职公司",
+      "business": "所属领域",
+      "gender": "性别",
+      "user_type": "用户类型",
+    };
+    let en_search_columns = [
+      "locations",
+      "educations_school",
+      "educations_major",
+      "employments_job",
+      "employments_company",
+      "business",
+      "gender",
+      "user_type",
+    ];
+
+    
+    async function get_all_form(){
+      for (let idx in en_search_columns){
+        async function get_op_eles(){
+          let search_attr = en_search_columns[idx];
+          let total_form_selete = document.getElementById("div-layui-form-item-for-search");
+          let label_ele = document.createElement("label");
+          label_ele.setAttribute("class", "layui-form-label");
+          label_ele.innerHTML = translate_search_columns[search_attr];
+          total_form_selete.append(label_ele);
+
+          let div_ele = document.createElement("div");
+          div_ele.setAttribute("id", "div-layui-form-item-for-search-"+search_attr);
+          div_ele.setAttribute("class", "layui-input-block");
+          let select_ele = document.createElement("select");
+          select_ele.setAttribute("id", "select-layui-form-item-for-search-"+search_attr);
+          select_ele.setAttribute("name", search_attr);
+          // select_ele.setAttribute("lay-verify", "required");  // 必填项
+          select_ele.setAttribute("lay-search", "");
+          let search_field = search_attr;
+          if (search_attr.includes("educations") || search_attr.includes("employments")){
+            search_field = search_attr.split("_")[0];
+          }
+          await $.post(
+            'http://407s2.dns.navy:2334/count_a_field', 
+            {
+              search_field : String(search_field)
+            },
+            function(data){
+              // console.log("search_attr:",search_attr,"; data:",data);
+              if (search_attr.includes("educations") || search_attr.includes("employments")){
+                data = data[search_attr.split("_")[1]];
+              }
+              let index = 0;
+              // Create items array
+              let items = Object.keys(data).map(function(key) {
+                return [key, data[key]];
+              });
+
+              // Sort the array based on the second element
+              items.sort(function(first, second) {
+                return second[1] - first[1];
+              });
+              items = items.slice(0, 100);
+              while(index <= items.length){
+                let op_ele = document.createElement("option");
+                if(index == 0){
+                  op_ele.setAttribute("value", "");
+                  select_ele.append(op_ele);
+                  index += 1;
+                } else{
+                  op_ele.setAttribute("value", items[index - 1][0]);
+                  op_ele.innerHTML = items[index - 1][0];
+                  select_ele.append(op_ele);
+                  index += 1;
+                }
+                // console.log("op_ele:", op_ele)
+              }
+              // console.log("select_ele:", select_ele)
+              
+              div_ele.append(select_ele)
+              div_ele.append(document.createElement("br"));
+              total_form_selete.append(div_ele);
+            }
+          );
+        }
+
+        
+        await get_op_eles();
+        form.render('select');
+      }
+    }
+    
+    get_all_form();
+    
+    //监听提交
+    
+    form.on('submit(layerui-form)', function(data){
+      let search_json = data.field;
+      for(let key in search_json){
+        if(search_json[key] == ""){
+          delete search_json[key];
+        }
+      }
+      layer.msg(JSON.stringify(search_json));
+      
+      
+      $.post(
+        'http://407s2.dns.navy:2334/match_fields_count', 
+        search_json,
+        function(data){
+          // 数据可视化
+          console.log("[开始数据可视化]");
+          console.log("data:", data);
+          if(Object.keys(data).length == 0){
+            layer.msg("未检索到任何数据！");
+            return;
+          }
+          document.getElementById("data-visualization").setAttribute("style", "visibility: visible;");
+          let attr_key_dict = {
+            0: "locations",
+            1: "educations_school",
+            2: "educations_major",
+            3: "employments_job",
+            4: "employments_company",
+            5: "business",
+            6: "gender",
+            7: "user_type",
+            8: "voteup_count",
+            9: "favorited_count",
+            10: "thanked_count",
+            11: "answer_count",
+            12: "articles_count",
+            13: "follower_count",
+            14: "following_count",
+          }
+          
+          function plot_everything(idx){
+            console.log('attr_key_dict[idx]:', attr_key_dict[idx]);
+            if (! attr_key_dict[idx].includes("_count")){
+              let attr = attr_key_dict[idx];
+              if (attr == "locations" || attr == "business"){
+                getDataAnalysisPiePlot("pie-" + attr, data[attr]);
+                getDataAnalysisBarPlot("bar-" + attr, data[attr]);
+              }
+              else if(attr.includes("educations") || attr.includes("employments")){
+                let lv1 = attr.split("_")[0], lv2 = attr.split("_")[1];
+                // console.log("data:", data)
+                // console.log("lv1:", lv1)
+                // console.log("lv2:", lv2)
+                getDataAnalysisPiePlot("pie-" + attr, data[lv1][lv2]);
+                getDataAnalysisBarPlot("bar-" + attr, data[lv1][lv2]);
+              }
+              else if(attr == "gender"){
+                if (1 in data[attr]){
+                  data[attr]['男'] = data[attr][1];
+                  data[attr]['女'] = data[attr][-1];
+                  data[attr]['未知'] = data[attr][0];
+                  delete data[attr][1];
+                  delete data[attr][-1];
+                  delete data[attr][0];
+                }
+                getDataAnalysisPiePlot("pie-" + attr, data[attr]);
+                getDataAnalysisBarPlot("bar-" + attr, data[attr]);
+              }
+              else if(attr == "user_type"){
+                getDataAnalysisPiePlot("pie-" + attr, data[attr]);
+                getDataAnalysisBarPlot("bar-" + attr, data[attr]);
+              }
+            }
+            else{
+              function show_all_counts(idx, maxidx){
+                console.log("数值活跃度……", idx, maxidx)
+                let attr = attr_key_dict[idx];
+                if(idx < maxidx && attr.includes("_count")){
+                  getDataAnalysisPiePlot("pie-" + attr, data[attr], true, false);
+                  show_all_counts(idx + 1, maxidx);
+                }
+                else return;
+              }
+              show_all_counts(idx, Object.keys(attr_key_dict).length);
+            }
+          }
+
+          console.log("current_index_keywords_based_visualization:", current_index_keywords_based_visualization);
+          plot_everything(current_index_keywords_based_visualization);
+
+          layui.use('element', function(){
+            var element = layui.element;
+            element.on('tab(data_analysis)', function(plot_ele){
+              let idx = plot_ele.index;
+              plot_everything(idx);
+              current_index_keywords_based_visualization = idx;
+            });
+          });
+        }
+      ).then( data =>{
+        // document.getElementById("data-visualization").setAttribute("style", "visibility: visible;");
+        close_loading_preview();
+      });
+      return false;
+    });
+  });
+</script>

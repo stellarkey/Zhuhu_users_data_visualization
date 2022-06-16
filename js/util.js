@@ -38,3 +38,24 @@ var en_columns = [
   "follower_count",
   "following_count",
 ];
+
+var translate_search_columns = {
+  "locations": "地区",
+  "educations_school": "就读学校",
+  "educations_major": "所学专业",
+  "employments_job": "就职岗位",
+  "employments_company": "就职公司",
+  "business": "所属领域",
+  "gender": "性别",
+  "user_type": "用户类型",
+};
+var en_search_columns = [
+  "locations",
+  "educations_school",
+  "educations_major",
+  "employments_job",
+  "employments_company",
+  "business",
+  "gender",
+  "user_type",
+];

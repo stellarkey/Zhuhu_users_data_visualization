@@ -1,9 +1,93 @@
+<style>
+  p {
+    font-size: larger;
+  }
+  h1, h2 {
+    padding: 10px;
+  }
+  .data_analysis_pie_chart {
+    height: 800px;
+  }
+  .data_analysis_bar_chart {
+    height: 500px;
+  }
+</style>
 <div class="layui-form-item">
   <label class="layui-form-label"><button id="search-button" type="button" class="layui-btn">探索！</button></label>
   <div class="layui-input-block">
-    <input id="search-text" onkeydown='if(event.keyCode==13) {document.getElementById("search-button").click()}' type="text" name="title" required  lay-verify="required" placeholder="请输入关键词查询（默认：自然语言处理）" autocomplete="off" class="layui-input">
+    <input id="search-text" onkeydown='if(event.keyCode==13) {document.getElementById("search-button").click()}' type="text" name="title" required  lay-verify="required" placeholder="请输入全文探索关键词（默认：清华大学）" autocomplete="off" class="layui-input">
   </div>
 </div>
-
-<div id="search-result"></div>
-<div id="data-visualization"></div>
+<div id="data-visualization" style="visibility: hidden;">
+  <div class="layui-tab layui-tab-brief" lay-filter="data_analysis">
+    <ul class="layui-tab-title">
+      <li class="layui-this">地域分布</li>
+      <li>教育程度-学校</li>
+      <li>教育程度-专业</li>
+      <li>职业背景</li>
+      <li>就职公司</li>
+      <li>所属领域</li>
+      <li>性别比例</li>
+      <li>用户类别</li>
+      <li>词频统计</li>
+      <li>数值活跃度</li>
+    </ul>
+    <div class="layui-tab-content">
+      <div class="layui-tab-item layui-show">
+        <h1>【探索】地域分布</h1>
+        <div id="bar-locations" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-locations" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【探索】教育程度（按学校）</h1>
+        <div id="bar-educations_school" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-educations_school" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【探索】教育程度（按专业）</h1>
+        <div id="bar-educations_major" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-educations_major" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【探索】职业背景（职业）</h1>
+        <div id="bar-employments_job" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-employments_job" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【探索】职业背景（就职公司）</h1>
+        <div id="bar-employments_company" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-employments_company" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【探索】所属领域</h1>
+        <div id="bar-business" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-business" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【探索】性别比例</h1>
+        <div id="bar-gender" class="data_analysis_bar_chart" style="height: 200px;">在这里加载Echarts Bar</div>
+        <div id="pie-gender" class="data_analysis_pie_chart" style="height: 300px;">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【探索】用户类别</h1>
+        <div id="bar-user_type" class="data_analysis_bar_chart" style="height: 200px;">在这里加载Echarts Bar</div>
+        <div id="pie-user_type" class="data_analysis_pie_chart" style="height: 300px;">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【探索】词频统计</h1>
+        <div id="bar-extract_words" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-extract_words" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+      <div class="layui-tab-item">
+        <h1>【探索】数值活跃度分析</h1>
+        <div id="pie-voteup_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-favorited_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-thanked_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-answer_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-articles_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-follower_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <div id="pie-following_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+      </div>
+    </div>
+  </div>
+</div>
