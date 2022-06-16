@@ -2,5 +2,5 @@
 data/
 test/
 !data/data_split/get_split_data.ipynb
-!data/count_analytics/get_data_count.ipynb
+!data/count_analytics
 !data/metadata/get_metadata.ipynb
