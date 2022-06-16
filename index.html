@@ -219,21 +219,26 @@
       data_analysis.create_data_analysis_at('main-content-area');
     }
   </script> 
+  <script>
+    function create_data_anomaly_analysis(){
+      data_analysis.create_data_anomaly_analysis_at('main-content-area');
+    }
+  </script> 
 
-<!-- 页面：全文搜索引擎 -->
-<script src="js/search_engine.js"></script>
-<script>
-  var search_engine = new SearchEngine();
-  function create_search_engine(){
-    search_engine.create_search_engine_at('main-content-area');
-  }
-</script>
-<!-- 页面：基于检索关键词的可视化 -->
-<script>
-  function create_keywords_based_visualization(){
-    search_engine.create_keywords_based_visualization_at('main-content-area');
-  }
-</script> 
+  <!-- 页面：全文搜索引擎 -->
+  <script src="js/search_engine.js"></script>
+  <script>
+    var search_engine = new SearchEngine();
+    function create_search_engine(){
+      search_engine.create_search_engine_at('main-content-area');
+    }
+  </script>
+  <!-- 页面：基于检索关键词的可视化 -->
+  <script>
+    function create_keywords_based_visualization(){
+      search_engine.create_keywords_based_visualization_at('main-content-area');
+    }
+  </script> 
 
 
   <!-- 通用函数 -->
@@ -287,6 +292,7 @@
       "#/demo3/": create_demo_random_choise,
       "#/demo4/": create_demo_barplot,
       "#/data-analysis/": create_data_analysis,
+      "#/data-anomaly-analysis/": create_data_anomaly_analysis,
       "#/search-engine/": create_search_engine,
       "#/keywords-based-visualization/": create_keywords_based_visualization,
       // "#/higher-order-retrieval-and-visualization/": create_higher_order_retrieval_and_visualization,
