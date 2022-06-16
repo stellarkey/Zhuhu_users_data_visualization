@@ -96,8 +96,8 @@
           <a href="javascript:;">数据探索</a>
           <dl class="layui-nav-child">
             <dd><a href="#/search-engine/">全文搜索引擎</a></dd>
-            <dd><a href="">item</a></dd>
-            <dd><a href="">item</a></dd>
+            <dd><a href="#/keywords-based-visualization/">基于检索关键词的可视化</a></dd>
+            <dd><a href="#/higher-order-retrieval-and-visualization/">高级搜索与可视化</a></dd>
           </dl>
         </li>
         
@@ -211,15 +211,6 @@
     }
   </script>
 
-  <!-- 页面：数据探索 -->
-  <script src="js/search_engine.js"></script>
-  <script>
-    var search_engine = new SearchEngine();
-    function create_search_engine(){
-      search_engine.create_search_engine_at('main-content-area');
-    }
-  </script> 
-
   <!-- 页面：数据分析 -->
   <script src="js/data_analysis.js"></script>
   <script>
@@ -228,6 +219,21 @@
       data_analysis.create_data_analysis_at('main-content-area');
     }
   </script> 
+
+<!-- 页面：全文搜索引擎 -->
+<script src="js/search_engine.js"></script>
+<script>
+  var search_engine = new SearchEngine();
+  function create_search_engine(){
+    search_engine.create_search_engine_at('main-content-area');
+  }
+</script>
+<!-- 页面：基于检索关键词的可视化 -->
+<script>
+  function create_keywords_based_visualization(){
+    search_engine.create_keywords_based_visualization_at('main-content-area');
+  }
+</script> 
 
 
   <!-- 通用函数 -->
@@ -280,8 +286,10 @@
       "#/demo2/": create_demo_d3_name_locations,
       "#/demo3/": create_demo_random_choise,
       "#/demo4/": create_demo_barplot,
-      "#/search-engine/": create_search_engine,
       "#/data-analysis/": create_data_analysis,
+      "#/search-engine/": create_search_engine,
+      "#/keywords-based-visualization/": create_keywords_based_visualization,
+      // "#/higher-order-retrieval-and-visualization/": create_higher_order_retrieval_and_visualization,
     };
     // hash 路由函数：根据 URL 加载相应的内容。
     function change_content_by_hash(){
