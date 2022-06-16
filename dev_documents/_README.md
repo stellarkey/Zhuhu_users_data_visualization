@@ -1,5 +1,13 @@
 # 10W+知乎用户可视化方案开发文档
 
+## References
+
+- [北京大学开放研究数据平台](https://opendata.pku.edu.cn/dataverse/pku)
+- http://wurui.cc/zhihu/
+- https://github.com/KEN-LJQ/ZhihuSpider
+- https://www.jianshu.com/p/962bc581e03a
+- Echarts 示例：https://echarts.apache.org/examples/zh/index.html
+
 ## 数据集
 
 > [北京大学开放研究数据平台](https://opendata.pku.edu.cn/dataverse/pku)
@@ -102,21 +110,19 @@
 
 > 按照 [https://www.jianshu.com/p/962bc581e03a](https://www.jianshu.com/p/962bc581e03a) 的思路复现。
 
-### 知乎用户职业背景
-
-### 知乎用户所属领域
-
-### 知乎用户教育程度分析
-
-### 知乎用户地域分布分析
-
-### 知乎用户性别比例分析
-
-### 知乎用户数值活跃度分析
+- 知乎用户职业背景
+- 知乎用户所属领域
+- 知乎用户教育程度分析
+- 知乎用户地域分布分析
+- 知乎用户性别比例分析
+- 知乎用户数值活跃度分析
+- ……
 
 ## 交叉特征分析
 
 交叉特征指多个特征混合形成的特征。
+
+## 异常特征分析
 
 
 
@@ -143,11 +149,3 @@
 
 
 
-
-
-## References
-
-- [北京大学开放研究数据平台](https://opendata.pku.edu.cn/dataverse/pku)
-- http://wurui.cc/zhihu/
-- https://github.com/KEN-LJQ/ZhihuSpider
-- https://www.jianshu.com/p/962bc581e03a
