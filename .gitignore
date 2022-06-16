@@ -1,6 +1,8 @@
 
-data/
-test/
+data/data_split/data_files_split_by_id/*
+data/single_datum/*
+data/single_datum/*
+data/items.json
+test/*
 !data/data_split/get_split_data.ipynb
-!data/count_analytics/
 !data/metadata/get_metadata.ipynb
