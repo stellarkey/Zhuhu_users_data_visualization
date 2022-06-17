@@ -68,7 +68,7 @@ class SearchEngine {
         width: "120px",
       },
     ]
-    var grid;
+    let grid;
     
     $("#"+element_id).load("static_content/search_engine_page.html", function(){
       document.getElementById("search-button").onclick = function(){
@@ -203,16 +203,16 @@ class SearchEngine {
               if (! attr_key_dict[idx].includes("_count")){
                 let attr = attr_key_dict[idx];
                 if (attr == "locations" || attr == "business"){
-                  getDataAnalysisPiePlot("pie-" + attr, data[attr]);
-                  getDataAnalysisBarPlot("bar-" + attr, data[attr]);
+                  getSearchEnginePiePlot("pie-" + attr, data[attr]);
+                  getSearchEngineBarPlot("bar-" + attr, data[attr]);
                 }
                 else if(attr.includes("educations") || attr.includes("employments")){
                   let lv1 = attr.split("_")[0], lv2 = attr.split("_")[1];
                   // console.log("data:", data)
                   // console.log("lv1:", lv1)
                   // console.log("lv2:", lv2)
-                  getDataAnalysisPiePlot("pie-" + attr, data[lv1][lv2]);
-                  getDataAnalysisBarPlot("bar-" + attr, data[lv1][lv2]);
+                  getSearchEnginePiePlot("pie-" + attr, data[lv1][lv2]);
+                  getSearchEngineBarPlot("bar-" + attr, data[lv1][lv2]);
                 }
                 else if(attr == "gender"){
                   if (1 in data[attr]){
@@ -223,12 +223,12 @@ class SearchEngine {
                     delete data[attr][-1];
                     delete data[attr][0];
                   }
-                  getDataAnalysisPiePlot("pie-" + attr, data[attr]);
-                  getDataAnalysisBarPlot("bar-" + attr, data[attr]);
+                  getSearchEnginePiePlot("pie-" + attr, data[attr]);
+                  getSearchEngineBarPlot("bar-" + attr, data[attr]);
                 }
                 else if(attr == "user_type"){
-                  getDataAnalysisPiePlot("pie-" + attr, data[attr]);
-                  getDataAnalysisBarPlot("bar-" + attr, data[attr]);
+                  getSearchEnginePiePlot("pie-" + attr, data[attr]);
+                  getSearchEngineBarPlot("bar-" + attr, data[attr]);
                 }
                 else if(attr == "extract_words"){
                   open_loading_preview();
@@ -240,14 +240,32 @@ class SearchEngine {
                     function(data){
                       
                       // console.log("data:", data);
-                      getDataAnalysisBarPlot("bar-" + attr, data);
-                      getDataAnalysisPiePlot("pie-" + attr, data);
+                      getSearchEngineWordCloudPlot("wordcloud-word_cloud", data);
+                      getSearchEngineBarPlot("bar-" + attr, data);
+                      getSearchEnginePiePlot("pie-" + attr, data);
                       
                     }
                   ).then(data => {
                     close_loading_preview();
                   })
-                  
+                }
+                else if(attr == "word_cloud"){
+                  open_loading_preview();
+                  $.post(
+                    'http://407s2.dns.navy:2334/extract_words', 
+                    {
+                      search_text : String(search_text)
+                    },
+                    function(data){
+                      getSearchEngineWordCloudPlot("wordcloud-" + attr, data);
+                      // console.log("data:", data);
+                      // getSearchEngineBarPlot("bar-" + attr, data);
+                      // getSearchEnginePiePlot("pie-" + attr, data);
+                      
+                    }
+                  ).then(data => {
+                    close_loading_preview();
+                  })
                 }
               }
               else{
@@ -255,7 +273,7 @@ class SearchEngine {
                   console.log("数值活跃度……", idx, maxidx)
                   let attr = attr_key_dict[idx];
                   if(idx < maxidx && attr.includes("_count")){
-                    getDataAnalysisPiePlot("pie-" + attr, data[attr], true, false);
+                    getSearchEnginePiePlot("pie-" + attr, data[attr], true, false);
                     show_all_counts(idx + 1, maxidx);
                   }
                   else return;
@@ -292,13 +310,14 @@ class SearchEngine {
     
     $("#"+element_id).load("static_content/search_engine-higher_order_retrieval_and_visualization.html", function(){
       
+
       close_loading_preview();
     });
   }
 }
 
 
-function getDataAnalysisBarPlot(plot_element_id, data){
+function getSearchEngineBarPlot(plot_element_id, data){
   let atttribute_name = plot_element_id.split("-")[1];
   // console.log(translate_columns[atttribute_name], "data:", data)
   let data_list = [], name_list = [], value_list = [];
@@ -364,7 +383,7 @@ function getDataAnalysisBarPlot(plot_element_id, data){
 }
 
 
-function getDataAnalysisPiePlot(plot_element_id, data, show_title=false, ordered=true){
+function getSearchEnginePiePlot(plot_element_id, data, show_title=false, ordered=true){
   let atttribute_name = plot_element_id.split("-")[1];
   // let atttribute_name = plot_element_id.replace("_count", "");
   // console.log(translate_columns[atttribute_name], "data:", data)
@@ -439,10 +458,10 @@ function getDataAnalysisPiePlot(plot_element_id, data, show_title=false, ordered
 }
 
 
-function getWordCloudPlot(plot_element_id, data){
+function getSearchEngineWordCloudPlot(plot_element_id, data){
   let atttribute_name = plot_element_id.split("-")[1];
   // let atttribute_name = plot_element_id.replace("_count", "");
-  // console.log(translate_columns[atttribute_name], "data:", data)
+  console.log("getDataAnalysisWordCloudPlot:",translate_columns[atttribute_name], "data:", data)
   let data_list = [];
   for(let key in data){
     data_list.push({"name": key, "value": data[key]});
@@ -453,53 +472,44 @@ function getWordCloudPlot(plot_element_id, data){
   
   data_list = data_list.slice(0,100);
   // console.log("data_list:", data_list);
+  
+  let myColorList = [
+    d3.scaleSequential().domain([0, data_list.length]).interpolator(d3.interpolateRainbow),
+    d3.scaleSequential().domain([0, data_list.length]).interpolator(d3.interpolateSinebow),
+    d3.scaleSequential().domain([0, data_list.length]).interpolator(d3.interpolateTurbo),
+  ];
+  let myColor = myColorList[Math.floor(Math.random() * myColorList.length)];
   let myChart = echarts.init(document.getElementById(plot_element_id));
       let option = {
-        title: {
-          show: false,
-          text: translate_columns[atttribute_name],
-          x: 'center'
-        },
-        color: ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc'],
-        toolbox: {
-          show: true,
-        },
-        tooltip: {
-          trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
-        },
-        legend: {
-          bottom: '0%',
-          left: 'center'
-        },
+        tooltip: {},
         series: [
           {
-            name: translate_columns[atttribute_name],
-            type: 'pie',
-            center: ['50%', '40%'],
-            radius: ['45%', '65%'],
-            avoidLabelOverlap: false,
-            itemStyle: {
-              borderRadius: 10,
-              borderColor: '#fff',
-              borderWidth: 0
-            },
-            label: {
-              show: false,
-              position: 'center'
+            type: 'wordCloud',
+            gridSize: 2,
+            sizeRange: [12, 50],
+            rotationRange: [-90, 90],
+            shape: 'pentagon',
+            width: '100%',
+            height: '100%',
+            sizeRange: [20, 85],
+            // drawOutOfBound: true,
+            textStyle: {
+                color: function () {
+                    return 'rgb(' + [
+                        Math.round(Math.random() * 160),
+                        Math.round(Math.random() * 160),
+                        Math.round(Math.random() * 160)
+                    ].join(',') + ')';
+                }
             },
             emphasis: {
-              label: {
-                show: true,
-                fontSize: '30',
-                fontWeight: 'bold',
-                formatter: '{b} : {c} ({d}%)'
-              }
+                textStyle: {
+                    shadowBlur: 10,
+                    shadowColor: '#333'
+                }
             },
-            labelLine: {
-              show: false
-            },
-            data: data_list
+            data: data_list,
+            name: translate_columns[atttribute_name],
           }
         ]
       };

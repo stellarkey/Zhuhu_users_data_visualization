@@ -11,10 +11,14 @@
   .data_analysis_bar_chart {
     height: 500px;
   }
+  .data_analysis_wordcloud_chart {
+    height: 500px;
+  }
 </style>
-<div id="data_analysis" style="width: 80%; margin: 0 auto;">
+<div id="data-visualization" style="width: 80%; margin: 0 auto;">
   <p style="text-align: center; font-style: italic;">Hello, Data Analysis!</p>
-  <h1>文本数据分析</h1>
+  <h1>文本数据分析（动态版）</h1>
+  <p>（只取前10000条结果进行分析。）</p>
   <hr />
   <div class="layui-tab layui-tab-brief" lay-filter="data_analysis">
     <ul class="layui-tab-title">
@@ -24,62 +28,47 @@
       <li>职业背景</li>
       <li>就职公司</li>
       <li>所属领域</li>
-      <li>性别比例</li>
-      <li>用户类别</li>
-      <li>数值活跃度</li>
+      <li>词频统计</li>
     </ul>
     <div class="layui-tab-content">
       <div class="layui-tab-item layui-show">
         <h1>知乎用户地域分布</h1>
+        <div id="wordcloud-locations" class="data_analysis_wordcloud_chart">在这里加载Echarts wordcloud</div>
         <div id="bar-locations" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
-        <div id="pie-locations" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
       </div>
       <div class="layui-tab-item">
         <h1>知乎用户教育程度（按学校）</h1>
+        <div id="wordcloud-educations_school" class="data_analysis_wordcloud_chart">在这里加载Echarts wordcloud</div>
         <div id="bar-educations_school" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
-        <div id="pie-educations_school" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
       </div>
       <div class="layui-tab-item">
         <h1>知乎用户教育程度（按专业）</h1>
+        <div id="wordcloud-educations_major" class="data_analysis_wordcloud_chart">在这里加载Echarts wordcloud</div>
         <div id="bar-educations_major" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
-        <div id="pie-educations_major" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
       </div>
       <div class="layui-tab-item">
         <h1>知乎用户职业背景（职业）</h1>
+        <div id="wordcloud-employments_job" class="data_analysis_wordcloud_chart">在这里加载Echarts wordcloud</div>
         <div id="bar-employments_job" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
-        <div id="pie-employments_job" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
       </div>
       <div class="layui-tab-item">
         <h1>知乎用户职业背景（就职公司）</h1>
+        <div id="wordcloud-employments_company" class="data_analysis_wordcloud_chart">在这里加载Echarts wordcloud</div>
         <div id="bar-employments_company" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
-        <div id="pie-employments_company" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
       </div>
       <div class="layui-tab-item">
         <h1>知乎用户所属领域</h1>
+        <div id="wordcloud-business" class="data_analysis_wordcloud_chart">在这里加载Echarts wordcloud</div>
         <div id="bar-business" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
-        <div id="pie-business" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
       </div>
       <div class="layui-tab-item">
-        <h1>知乎用户性别比例</h1>
-        <div id="bar-gender" class="data_analysis_bar_chart" style="height: 200px;">在这里加载Echarts Bar</div>
-        <div id="pie-gender" class="data_analysis_pie_chart" style="height: 300px;">在这里加载Echarts Pie</div>
-      </div>
-      <div class="layui-tab-item">
-        <h1>知乎用户用户类别</h1>
-        <div id="bar-user_type" class="data_analysis_bar_chart" style="height: 200px;">在这里加载Echarts Bar</div>
-        <div id="pie-user_type" class="data_analysis_pie_chart" style="height: 300px;">在这里加载Echarts Pie</div>
-      </div>
-      <div class="layui-tab-item">
-        <h1>知乎用户数值活跃度分析</h1>
-        <div id="pie-voteup_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
-        <div id="pie-favorited_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
-        <div id="pie-thanked_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
-        <div id="pie-answer_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
-        <div id="pie-articles_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
-        <div id="pie-follower_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
-        <div id="pie-following_count" class="data_analysis_pie_chart" style="height: 300px; width: 500px; margin: 0 auto;">在这里加载Echarts Pie</div>
+        <h1>知乎用户词频统计</h1>
+        <div id="wordcloud-extract_words" class="data_analysis_wordcloud_chart">在这里加载Echarts wordcloud</div>
+        <div id="bar-extract_words" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-extract_words" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
       </div>
     </div>
+    
   </div>
   
 </div>

@@ -17,6 +17,10 @@ var translate_columns = {
   "favorited_count": "收藏数",
   "follower_count": "被关注数",
   "following_count": "关注数",
+  "educations_school": "就读学校",
+  "educations_major": "所学专业",
+  "employments_job": "就职岗位",
+  "employments_company": "就职公司",
 };
 var en_columns = [
   "name",
