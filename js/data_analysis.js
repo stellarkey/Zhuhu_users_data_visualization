@@ -176,7 +176,7 @@ class DataAnalysis {
         function(data){
           // 数据可视化
           console.log("[开始文本数据分析]");
-          document.getElementById("data-visualization").setAttribute("style", "visibility: visible;");
+          // document.getElementById("data-visualization").setAttribute("style", "visibility: visible;");
           let attr_key_dict = {
             0: "locations",
             1: "educations_school",
@@ -268,7 +268,7 @@ class DataAnalysis {
           });
         }
       ).then( data =>{
-        document.getElementById("data-visualization").setAttribute("style", "visibility: visible;");
+        // document.getElementById("data-visualization").setAttribute("style", "visibility: visible;");
         close_loading_preview();
       });
       close_loading_preview();
