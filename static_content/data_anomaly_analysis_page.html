@@ -14,7 +14,6 @@
 </style>
 <div id="data_analysis" style="width: 80%; margin: 0 auto;">
   <p style="text-align: center; font-style: italic;">Hello, Data Analysis!</p>
-  <p>数据分析部分主要通过<b>预处理</b>得到的总体数据进行<b>静态分析</b>。（预处理过程详见：<a href="https://github.com/stellarkey/Zhuhu_users_data_visualization/blob/main/data/count_analytics/get_data_count.ipynb">get_data_count.ipynb - Zhuhu_users_data_visualization</a>）</p>
   <hr />
   <div class="layui-tab layui-tab-brief" lay-filter="data_anomaly_analysis">
     <ul class="layui-tab-title">
@@ -26,18 +25,21 @@
 
       <div class="layui-tab-item layui-show">
         <h1>知乎最默默无闻用户排名</h1>
+        <p>这些用户的回答数寥寥无几，却在默默关注着知乎中的一举一动。</p>
         <div id="bar-following_num" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
         <!-- <div id="pie-following_num" class="data_analysis_pie_chart">在这里加载Echarts Pie</div> -->
       </div>
 
       <div class="layui-tab-item">
-        <h1>知乎最热心用户排名</h1>
+        <h1>知乎最热心用户排名</h1>        
+        <p>这里给出了回答数和文章数之和的总排名Top10，这些用户往往乐于帮助他人, 并通过文字记录生活。</p>
         <div id="bar-answer_articles_num" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
         <!-- <div id="pie-following_num" class="data_analysis_pie_chart">在这里加载Echarts Pie</div> -->
       </div>
 
       <div class="layui-tab-item">
         <h1>知乎最受认可用户排名</h1>
+        <p>这些用户的感谢数和获赞数之和保持前列，说明他们对于问题的见解、对生活的思考能够得到大多数人的认可。</p>
         <div id="bar-voteup_thanked_num" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
         <!-- <div id="pie-following_num" class="data_analysis_pie_chart">在这里加载Echarts Pie</div> -->
       </div>
