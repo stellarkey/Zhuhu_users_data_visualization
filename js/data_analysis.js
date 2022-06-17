@@ -83,43 +83,41 @@ class DataAnalysis {
     $("#"+element_id).load("static_content/data_advanced_analysis_page.html", function(){
       // analysis_element_list 必须与 data_analysis_page.html 中的 tab 顺序一致
       var analysis_element_list = [
-        "locations",
-        "educations_school",
+        "advanced_data",
       ];
       let idx = 0;
       $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
-        getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
-        getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
+        getDataAdvanedAnalysisParallelPlot("parallel-" + analysis_element_list[idx], data);
       })
-      layui.use('element', function(){
-          var element = layui.element;
-        element.on('tab(data_analysis)', function(data){
-          // console.log(this); //当前Tab标题所在的原始DOM元素
-          // console.log(data.index); //得到当前Tab的所在下标
-          // console.log(data.elem); //得到当前的Tab大容器
-          let idx = data.index;
-          if (! analysis_element_list[idx].includes("_count")){
-            $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
-              getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
-              getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
-            })
-          }
-          else{
-            function show_all_counts(idx, maxidx){
-              if(idx < maxidx){
-                $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
-                  getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data, true, false);
-                }).then( nothing => {
-                  show_all_counts(idx + 1, maxidx);
-                })
-              }
-              else return;
-            }
-            show_all_counts(idx, analysis_element_list.length); 
-          }
+      // layui.use('element', function(){
+      //     var element = layui.element;
+      //   element.on('tab(data_analysis)', function(data){
+      //     // console.log(this); //当前Tab标题所在的原始DOM元素
+      //     // console.log(data.index); //得到当前Tab的所在下标
+      //     // console.log(data.elem); //得到当前的Tab大容器
+      //     let idx = data.index;
+      //     if (! analysis_element_list[idx].includes("_count")){
+      //       $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
+      //         getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
+      //         getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
+      //       })
+      //     }
+      //     else{
+      //       function show_all_counts(idx, maxidx){
+      //         if(idx < maxidx){
+      //           $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
+      //             getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data, true, false);
+      //           }).then( nothing => {
+      //             show_all_counts(idx + 1, maxidx);
+      //           })
+      //         }
+      //         else return;
+      //       }
+      //       show_all_counts(idx, analysis_element_list.length); 
+      //     }
           
-        });
-      });
+      //   });
+      // });
       close_loading_preview();
     });
   }
@@ -444,4 +442,29 @@ function getDataAnomalyAnalysisBarPlot(plot_element_id, data){
       console.log("myColor:", myColor)
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
+}
+
+//----------------------------------------------------------------//
+function getDataAdvanedAnalysisParallelPlot(plot_element_id, data){
+  let myChart = echarts.init(document.getElementById(plot_element_id));
+  let option = {
+    parallelAxis: [
+      { dim: 0, name: '回答数' },
+      { dim: 1, name: '文章数' },
+      { dim: 2, name: '关注者' },
+      { dim: 3, 
+        name: '所在大学', 
+        type: 'category',
+        data: ["清华大学", "北京大学", "浙江大学", "上海交通大学", "武汉大学", "复旦大学", "南京大学", "华中科技大学"]
+      },
+    ],
+    series: {
+      type: 'parallel',
+      lineStyle: {
+        width: 2
+      },
+      data: data
+    }
+  };
+  myChart.setOption(option);
 }
