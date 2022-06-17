@@ -1,0 +1,42 @@
+<style>
+  p {
+    font-size: larger;
+  }
+  h1, h2 {
+    padding: 10px;
+  }
+  .data_analysis_pie_chart {
+    height: 800px;
+  }
+  .data_analysis_bar_chart {
+    height: 500px;
+  }
+</style>
+<div id="data_analysis" style="width: 80%; margin: 0 auto;">
+  <p style="text-align: center; font-style: italic;">Hello, Data Analysis!</p>
+  <p>数据分析部分主要通过<b>预处理</b>得到的总体数据进行<b>静态分析</b>。（预处理过程详见：<a href="https://github.com/stellarkey/Zhuhu_users_data_visualization/blob/main/data/count_analytics/get_data_count.ipynb">get_data_count.ipynb - Zhuhu_users_data_visualization</a>）</p>
+  <hr />
+  <div class="layui-tab layui-tab-brief" lay-filter="data_analysis">
+    <ul class="layui-tab-title">
+      <li class="layui-this">地域分布</li>
+      <li>教育程度-学校</li>
+
+    </ul>
+
+    <div class="layui-tab-content">
+      <div class="layui-tab-item layui-show">
+        <h1>知乎用户地域分布</h1>
+        <div id="bar-locations" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-locations" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+
+      <div class="layui-tab-item">
+        <h1>知乎用户教育程度（按学校）</h1>
+        <div id="bar-educations_school" class="data_analysis_bar_chart">在这里加载Echarts Bar</div>
+        <div id="pie-educations_school" class="data_analysis_pie_chart">在这里加载Echarts Pie</div>
+      </div>
+
+    </div>
+  </div>
+  
+</div>

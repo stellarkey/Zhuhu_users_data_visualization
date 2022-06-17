@@ -73,6 +73,58 @@ class DataAnalysis {
     });
   }
 
+  //-------------------data advanced analysis-----------------//
+  create_data_advanced_analysis_at(element_id){
+    open_loading_preview();
+    // console.log(element_id)
+    // console.log(document.getElementById(element_id))
+    document.getElementById(element_id).innerHTML = "数据分析模块初始化……";
+    
+    $("#"+element_id).load("static_content/data_advanced_analysis_page.html", function(){
+      // analysis_element_list 必须与 data_analysis_page.html 中的 tab 顺序一致
+      var analysis_element_list = [
+        "locations",
+        "educations_school",
+      ];
+      let idx = 0;
+      $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
+        getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
+        getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
+      })
+      layui.use('element', function(){
+          var element = layui.element;
+        element.on('tab(data_analysis)', function(data){
+          // console.log(this); //当前Tab标题所在的原始DOM元素
+          // console.log(data.index); //得到当前Tab的所在下标
+          // console.log(data.elem); //得到当前的Tab大容器
+          let idx = data.index;
+          if (! analysis_element_list[idx].includes("_count")){
+            $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
+              getDataAnalysisBarPlot("bar-" + analysis_element_list[idx], data);
+              getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data);
+            })
+          }
+          else{
+            function show_all_counts(idx, maxidx){
+              if(idx < maxidx){
+                $.getJSON("data/count_analytics/"+analysis_element_list[idx]+"_count.json").then(data => {
+                  getDataAnalysisPiePlot("pie-" + analysis_element_list[idx], data, true, false);
+                }).then( nothing => {
+                  show_all_counts(idx + 1, maxidx);
+                })
+              }
+              else return;
+            }
+            show_all_counts(idx, analysis_element_list.length); 
+          }
+          
+        });
+      });
+      close_loading_preview();
+    });
+  }
+
+
   // -----------Data Anomaly Analysis-------------
   create_data_anomaly_analysis_at(element_id){
     open_loading_preview();
