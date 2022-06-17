@@ -48,7 +48,7 @@
   - D3.js
     - d3-tip.js
   - Echarts.js
-  - Mermaid.js
+    - Echarts-wordcloud.js
   - Grid.js
 - 前端
   - *HTML + CSS + JavaScript*
