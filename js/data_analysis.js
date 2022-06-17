@@ -486,7 +486,6 @@ function getDataAnomalyAnalysisBarPlot(plot_element_id, data){
       myChart.setOption(option);
 }
 
-<<<<<<< Updated upstream
 //----------------------------------------------------------------//
 function getDataAdvanedAnalysisParallelPlot(plot_element_id, data){
   let myChart = echarts.init(document.getElementById(plot_element_id));
@@ -510,7 +509,8 @@ function getDataAdvanedAnalysisParallelPlot(plot_element_id, data){
     }
   };
   myChart.setOption(option);
-=======
+}
+
 function getDataAnalysisWordCloudPlot(plot_element_id, data){
   let atttribute_name = plot_element_id.split("-")[1];
   // let atttribute_name = plot_element_id.replace("_count", "");
@@ -568,5 +568,4 @@ function getDataAnalysisWordCloudPlot(plot_element_id, data){
       };
       // 使用刚指定的配置项和数据显示图表。
       myChart.setOption(option);
->>>>>>> Stashed changes
 }
