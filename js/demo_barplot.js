@@ -7,7 +7,7 @@ class BarplotDemo {
     `;
     
     let d3_svg = d3.select(document.getElementById("bar_svg")).node();
-    $.getJSON("data/count_analytics/dict_locations_count.json").then(data => {
+    $.getJSON("data/count_analytics/list_locations_count.json").then(data => {
       // 只取前30名
       data = data.slice(0,30);
 
